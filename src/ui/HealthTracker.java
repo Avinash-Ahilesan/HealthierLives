@@ -59,9 +59,6 @@ public class HealthTracker {
         }
     }
 
-    public static void welcome() {
-        System.out.println("Welcome to the Dr Phone application!");
-    }
 
     public static void printPersonInformation(Person p) {
         System.out.println("Person's name is " + p.getName() + " with age " + p.getAge());
