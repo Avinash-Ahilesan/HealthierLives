@@ -1,32 +1,34 @@
 package model;
 
-import java.util.Date;
+import java.util.Calendar;
 
 public class Food {
 
 
     private String name;
+    private Calendar date;
 
 
-    private Date date;
-
+    //EFFECTS: Returns the calories of the food
     public int getCalories() {
         return calories;
     }
 
     private int calories;
 
-    public Food(String name, Date date, int calorieCount) {
+    public Food(String name, Calendar date, int calorieCount) {
         this.name = name;
         this.date = date;
         this.calories = calorieCount;
     }
 
+    //EFFECTS: Returns the name of the food
     public String getName() {
         return name;
     }
 
-    public Date getDate() {
+    //EFFECTS: Returns the date the food was consumed
+    public Calendar getDate() {
         return date;
     }
 

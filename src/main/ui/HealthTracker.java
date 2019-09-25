@@ -37,7 +37,8 @@ public class HealthTracker {
         }
     }
 
-
+    //MODIFIES: this
+    //EFFECTS: converts string into a person object, that's added to list
     public void addPerson(String personInfo) {
         Person newPerson = Person.parseString(personInfo);
         personList.add(newPerson);
@@ -45,12 +46,14 @@ public class HealthTracker {
         printPersonInformation(newPerson);
     }
 
+    //EFFECTS: outputs the people in the list
     public void outputPersonList() {
         for (Person p : personList) {
             System.out.println(p);
         }
     }
 
+    //EFFECTS: finds the given person in the list, prints out their info
     public void getPersonFromList(String person) {
         for (Person p : personList) {
             if (p.getName().equals(person)) {
@@ -59,7 +62,7 @@ public class HealthTracker {
         }
     }
 
-
+    //EFFECTS: prints out the given persons information
     public  void printPersonInformation(Person p) {
         System.out.println("Person's name is " + p.getName() + " with age " + p.getAge());
     }
