@@ -9,10 +9,10 @@ public class HealthTracker {
     private ArrayList<Person> personList;
 
     public static void main(String[] args) {
-        HealthTracker tracker = new HealthTracker();
+        /*HealthTracker tracker = new HealthTracker();
         tracker.personList = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
-        run(tracker, sc);
+        run(tracker, sc);*/
 
     }
 
@@ -60,7 +60,7 @@ public class HealthTracker {
     }
 
 
-    public static void printPersonInformation(Person p) {
+    public  void printPersonInformation(Person p) {
         System.out.println("Person's name is " + p.getName() + " with age " + p.getAge());
     }
 }
