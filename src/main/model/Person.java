@@ -3,7 +3,7 @@ package model;
 import java.io.*;
 import java.util.ArrayList;
 
-public class Person implements LoadableAndSaveable, Serializable {
+public class Person implements LoadableAndSaveable {
     private String name;
     private int age;
     private int targetCalories;
@@ -14,6 +14,8 @@ public class Person implements LoadableAndSaveable, Serializable {
         this.name = name;
         this.age = age;
     }
+
+
 
     //EFFECTS: Returns the name and age of the person
     @Override
@@ -63,7 +65,7 @@ public class Person implements LoadableAndSaveable, Serializable {
             ObjectInputStream reader = new ObjectInputStream(file);
             while (true) {
                 try {
-                    Object person = (Object)reader.readObject();
+                    Object person = reader.readObject();
                     personList.add(person);
                 } catch (Exception ex) {
                     break;
@@ -90,4 +92,22 @@ public class Person implements LoadableAndSaveable, Serializable {
             System.out.println("IO Exception occured");
         }
     }
+
+    //EFFECTS: returns true if two objects are equal
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || this.getClass() != obj.getClass()) {
+            return false;
+        }
+        Person person = (Person) obj;
+        if (person.name.equals(this.name) && person.age == this.age &&
+                person.foodEaten.equals(foodEaten) && targetCalories == person.targetCalories) {
+            return true;
+        }
+        return false;
+    }
+
 }

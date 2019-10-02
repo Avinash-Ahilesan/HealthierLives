@@ -32,4 +32,19 @@ public class Food {
         return date;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || this.getClass() != obj.getClass()) {
+            return false;
+        }
+        Food food = (Food) obj;
+        if (calories == this.calories && date.equals(food.date) && name.equals(food.name)) {
+            return true;
+        }
+        return false;
+    }
+
 }

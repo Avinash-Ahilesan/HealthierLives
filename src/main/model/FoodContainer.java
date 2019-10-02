@@ -1,10 +1,11 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class FoodContainer {
+public class FoodContainer implements Serializable {
     private ArrayList<Food> foodList;
 
     public FoodContainer() {
@@ -34,6 +35,21 @@ public class FoodContainer {
             }
         }
         return calorieTotal;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || this.getClass() != obj.getClass()) {
+            return false;
+        }
+        FoodContainer container = (FoodContainer) obj;
+        if (foodList.equals(container.foodList)) {
+            return true;
+        }
+        return false;
     }
 
     //MODIFIES: this

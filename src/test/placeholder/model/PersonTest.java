@@ -2,6 +2,9 @@ package placeholder.model;
 
 import model.Person;
 import org.junit.jupiter.api.*;
+
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PersonTest {
@@ -48,6 +51,17 @@ public class PersonTest {
         /*person = Person.parseString("Avinash24");
         assertEquals("Avinash", person.getName());
         assertEquals(24, person.getAge());*/
+    }
+
+    @Test
+    public void testSaveAndLoadSinglePerson(){
+        person.save();
+
+        ArrayList<Object> loadedPersonList = person.load();
+        Person loadedPerson = (Person)loadedPersonList.get(0);
+
+        assertEquals(person, loadedPerson);
+
     }
 
 

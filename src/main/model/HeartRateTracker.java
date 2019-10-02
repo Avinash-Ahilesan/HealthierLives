@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class HeartRateTracker implements Tracker, LoadableAndSaveable, Serializable {
+public class HeartRateTracker implements Tracker, LoadableAndSaveable {
 
     private ArrayList<HeartRateRecording> heartRateRecords = new ArrayList<>();
 
@@ -14,19 +14,20 @@ public class HeartRateTracker implements Tracker, LoadableAndSaveable, Serializa
 
     @Override
     public void generateTable() {
-
-    }
-
-    @Override
-    public void saveData() {
-
+        //TODO: Implement method
     }
 
     @Override
     public HeartRateRecording getLastRecording() {
+
         return heartRateRecords.get(heartRateRecords.size() - 1);
     }
 
+
+    @Override
+    public String toString() {
+        return heartRateRecords.toString();
+    }
 
     @Override
     public ArrayList<Object> load() {
@@ -37,6 +38,7 @@ public class HeartRateTracker implements Tracker, LoadableAndSaveable, Serializa
             while (true) {
                 try {
                     Object record = reader.readObject();
+                    System.out.println(record);
                     recordList.add(record);
                 } catch (Exception ex) {
                     break;
@@ -52,7 +54,7 @@ public class HeartRateTracker implements Tracker, LoadableAndSaveable, Serializa
     public void save() {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(
-                    new File(PATH + "heartRateRecordingSave.txt"), true);
+                    new File(PATH + "heartRateRecordingSave.txt"));
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
             objectOutputStream.writeObject(this);
             objectOutputStream.close();
@@ -61,7 +63,7 @@ public class HeartRateTracker implements Tracker, LoadableAndSaveable, Serializa
         } catch (FileNotFoundException e) {
             System.out.println("Could not find file");
         } catch (IOException e) {
-            System.out.println("IO Exception occured");
+            e.printStackTrace();
         }
     }
 }
