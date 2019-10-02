@@ -38,7 +38,7 @@ public class HeartRateTrackerTest {
 
     @Test
     public void testSaveAndLoad() {
-        tracker.save();
+        tracker.save(false);
 
 
         ArrayList<Object> heartRates = tracker.load();

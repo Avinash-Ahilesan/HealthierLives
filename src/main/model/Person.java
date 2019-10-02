@@ -77,9 +77,9 @@ public class Person implements LoadableAndSaveable {
     }
 
     @Override
-    public void save() {
+    public void save(boolean append) {
         try {
-            FileOutputStream fileOutputStream = new FileOutputStream(new File(PATH + "todoListData.txt"));
+            FileOutputStream fileOutputStream = new FileOutputStream(new File(PATH + "todoListData.txt"), append);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
             objectOutputStream.writeObject(this);
             objectOutputStream.close();

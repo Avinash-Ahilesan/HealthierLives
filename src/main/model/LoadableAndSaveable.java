@@ -13,5 +13,5 @@ public interface LoadableAndSaveable extends Serializable {
     ArrayList<Object> load();
 
     //EFFECTS: Saves objects content to a file
-    void save();
+    void save(boolean append);
 }

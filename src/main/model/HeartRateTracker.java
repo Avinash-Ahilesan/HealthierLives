@@ -51,7 +51,7 @@ public class HeartRateTracker implements Tracker, LoadableAndSaveable {
     }
 
     @Override
-    public void save() {
+    public void save(boolean append) {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(
                     new File(PATH + "heartRateRecordingSave.txt"));

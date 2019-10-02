@@ -56,7 +56,7 @@ public class PersonTest {
 
     @Test
     public void testSaveAndLoadSinglePerson() {
-        person.save();
+        person.save(false);
 
         ArrayList<Object> loadedPersonList = person.load();
         Person loadedPerson = (Person) loadedPersonList.get(0);

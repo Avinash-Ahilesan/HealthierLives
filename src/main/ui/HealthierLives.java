@@ -13,10 +13,10 @@ public class HealthierLives {
     private static final String PROFILE_PATH = "./data/todoListData.txt";
 
     public static void main(String[] args) {
-        /*HealthierLives tracker = new HealthierLives();
+        HealthierLives tracker = new HealthierLives();
         tracker.personList = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
-        run(tracker, sc);*/
+        run(tracker, sc);
 
     }
 
@@ -72,8 +72,12 @@ public class HealthierLives {
 
     private static void savePersonListToFile(HealthierLives healthierLives) {
 
-        for (Person person : healthierLives.personList) {
-            person.save();
+        for (int i = 0; i < healthierLives.personList.size(); i++) {
+            if (i == 0) {
+                healthierLives.personList.get(i).save(false);
+                continue;
+            }
+            healthierLives.personList.get(i).save(true);
         }
     }
 
