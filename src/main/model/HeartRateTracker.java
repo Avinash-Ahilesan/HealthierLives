@@ -1,0 +1,67 @@
+package model;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+
+public class HeartRateTracker implements Tracker, LoadableAndSaveable, Serializable {
+
+    private ArrayList<HeartRateRecording> heartRateRecords = new ArrayList<>();
+
+    public void addHeartRate(Calendar date, int bpm) {
+        heartRateRecords.add(new HeartRateRecording(date, bpm));
+    }
+
+    @Override
+    public void generateTable() {
+
+    }
+
+    @Override
+    public void saveData() {
+
+    }
+
+    @Override
+    public HeartRateRecording getLastRecording() {
+        return heartRateRecords.get(heartRateRecords.size() - 1);
+    }
+
+
+    @Override
+    public ArrayList<Object> load() {
+        ArrayList<Object> recordList = new ArrayList<>();
+        try {
+            FileInputStream file = new FileInputStream(new File(PATH + "heartRateRecordingSave.txt"));
+            ObjectInputStream reader = new ObjectInputStream(file);
+            while (true) {
+                try {
+                    Object record = reader.readObject();
+                    recordList.add(record);
+                } catch (Exception ex) {
+                    break;
+                }
+            }
+        } catch (Exception ex) {
+            System.err.println("could not read");
+        }
+        return recordList;
+    }
+
+    @Override
+    public void save() {
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(
+                    new File(PATH + "heartRateRecordingSave.txt"), true);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(this);
+            objectOutputStream.close();
+            fileOutputStream.close();
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Could not find file");
+        } catch (IOException e) {
+            System.out.println("IO Exception occured");
+        }
+    }
+}

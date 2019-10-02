@@ -1,6 +1,9 @@
 package model;
 
-public class Person {
+import java.io.*;
+import java.util.ArrayList;
+
+public class Person implements LoadableAndSaveable, Serializable {
     private String name;
     private int age;
     private int targetCalories;
@@ -49,5 +52,42 @@ public class Person {
     public static Person parseString(String personString) {
         String[] personParams = personString.split("\\s+");
         return new Person(personParams[0], Integer.parseInt(personParams[1]));
+    }
+
+
+    @Override
+    public ArrayList<Object> load() {
+        ArrayList<Object> personList = new ArrayList<>();
+        try {
+            FileInputStream file = new FileInputStream(new File(PATH + "todoListData.txt"));
+            ObjectInputStream reader = new ObjectInputStream(file);
+            while (true) {
+                try {
+                    Object person = (Object)reader.readObject();
+                    personList.add(person);
+                } catch (Exception ex) {
+                    break;
+                }
+            }
+        } catch (Exception ex) {
+            System.err.println("could not read");
+        }
+        return personList;
+    }
+
+    @Override
+    public void save() {
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(new File(PATH + "todoListData.txt"));
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(this);
+            objectOutputStream.close();
+            fileOutputStream.close();
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Could not find file");
+        } catch (IOException e) {
+            System.out.println("IO Exception occured");
+        }
     }
 }
