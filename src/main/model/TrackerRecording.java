@@ -7,7 +7,7 @@ public class TrackerRecording implements Serializable {
     protected Calendar calendar;
 
     public Calendar getDate() {
-        return (Calendar)calendar.clone();
+        return (Calendar) calendar.clone();
     }
 
 }

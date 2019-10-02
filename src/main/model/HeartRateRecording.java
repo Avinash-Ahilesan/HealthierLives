@@ -3,7 +3,7 @@ package model;
 import java.io.Serializable;
 import java.util.Calendar;
 
-public class HeartRateRecording extends TrackerRecording  {
+public class HeartRateRecording extends TrackerRecording {
     private int bpm;
 
     public HeartRateRecording(Calendar date, int bpm) {

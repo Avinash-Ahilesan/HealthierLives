@@ -9,13 +9,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PersonTest {
     Person person;
+
     @BeforeEach
-    private void setUp(){
+    private void setUp() {
         person = new Person("Avinash", 19);
     }
 
     @Test
-    public void testGetNameAndSetName(){
+    public void testGetNameAndSetName() {
         assertEquals("Avinash", person.getName());
         person.setName("Blah");
         assertEquals("Blah", person.getName());
@@ -23,7 +24,7 @@ public class PersonTest {
 
 
     @Test
-    public void testGetAgeAndSetAge(){
+    public void testGetAgeAndSetAge() {
         assertEquals(19, person.getAge());
         person.setAge(35);
         assertEquals(35, person.getAge());
@@ -32,15 +33,15 @@ public class PersonTest {
     }
 
     @Test
-    public void testToString(){
-        assertEquals("Avinash" ,person.getName());
+    public void testToString() {
+        assertEquals("Avinash", person.getName());
         assertEquals(19, person.getAge());
         assertEquals("Avinash 19", person.toString());
     }
 
     @Test
-    public void testParseString(){
-        Person person =  Person.parseString("Avinash 25"); // 1 space
+    public void testParseString() {
+        Person person = Person.parseString("Avinash 25"); // 1 space
         assertEquals("Avinash", person.getName());
         assertEquals(25, person.getAge());
 
@@ -54,11 +55,11 @@ public class PersonTest {
     }
 
     @Test
-    public void testSaveAndLoadSinglePerson(){
+    public void testSaveAndLoadSinglePerson() {
         person.save();
 
         ArrayList<Object> loadedPersonList = person.load();
-        Person loadedPerson = (Person)loadedPersonList.get(0);
+        Person loadedPerson = (Person) loadedPersonList.get(0);
 
         assertEquals(person, loadedPerson);
 

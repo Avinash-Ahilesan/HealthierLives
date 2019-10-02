@@ -1,4 +1,5 @@
 package placeholder.model;
+
 import model.Food;
 import model.FoodContainer;
 import org.junit.jupiter.api.*;
@@ -14,22 +15,25 @@ public class FoodContainerTest {
     Food banana;
     Calendar date1;
     Calendar date2;
+
     @BeforeEach
-    public void setup(){
+    public void setup() {
         foodContainer = new FoodContainer();
         date1 = new Calendar.Builder().setDate(2019, 5, 29).build();
         date2 = new Calendar.Builder().setDate(2019, 9, 2).build();
         apple = new Food("apple", date1, 100);
         banana = new Food("banana", date2, 50);
     }
+
     @Test
-    public void testGetFoodCount(){
+    public void testGetFoodCount() {
         assertEquals(0, foodContainer.getFoodCount());
         foodContainer.addFood(apple);
         assertEquals(1, foodContainer.getFoodCount());
     }
+
     @Test
-    public void testGetCalorieCount(){
+    public void testGetCalorieCount() {
         assertEquals(0, foodContainer.getCalorieTotal()); // No items added yet
         foodContainer.addFood(apple);
         assertEquals(100, foodContainer.getCalorieTotal()); // 1 item added
@@ -37,8 +41,9 @@ public class FoodContainerTest {
         assertEquals(150, foodContainer.getCalorieTotal()); // check if 2 items add correctly
 
     }
+
     @Test
-    public void testGetCalorieCountByDate(){
+    public void testGetCalorieCountByDate() {
         assertEquals(0, foodContainer.getCalorieTotalByDate(date1));
         assertEquals(0, foodContainer.getCalorieTotalByDate(date2));
         foodContainer.addFood(apple);
@@ -49,8 +54,9 @@ public class FoodContainerTest {
         foodContainer.addFood(kiwi);
         assertEquals(75, foodContainer.getCalorieTotalByDate(date2)); //2 item test
     }
+
     @Test
-    public void testAddFood(){
+    public void testAddFood() {
         assertEquals(0, foodContainer.getFoodCount());
         foodContainer.addFood(apple);
         assertEquals(1, foodContainer.getFoodCount());

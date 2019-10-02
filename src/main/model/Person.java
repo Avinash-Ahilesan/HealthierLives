@@ -16,7 +16,6 @@ public class Person implements LoadableAndSaveable {
     }
 
 
-
     //EFFECTS: Returns the name and age of the person
     @Override
     public String toString() {
@@ -103,8 +102,8 @@ public class Person implements LoadableAndSaveable {
             return false;
         }
         Person person = (Person) obj;
-        if (person.name.equals(this.name) && person.age == this.age &&
-                person.foodEaten.equals(foodEaten) && targetCalories == person.targetCalories) {
+        if (person.name.equals(this.name) && person.age == this.age
+                && person.foodEaten.equals(foodEaten) && targetCalories == person.targetCalories) {
             return true;
         }
         return false;
