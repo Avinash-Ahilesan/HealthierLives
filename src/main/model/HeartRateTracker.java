@@ -54,7 +54,7 @@ public class HeartRateTracker implements Tracker, LoadableAndSaveable {
     public void save(boolean append) {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(
-                    new File(PATH + "heartRateRecordingSave.txt"));
+                    new File(PATH + "heartRateRecordingSave.txt"), true);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
             objectOutputStream.writeObject(this);
             objectOutputStream.close();

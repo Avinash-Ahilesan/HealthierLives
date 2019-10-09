@@ -1,7 +1,7 @@
 package ui;
 
 
-import model.Person;
+import model.*;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -42,7 +42,7 @@ public class HealthierLives {
             if (input.equals("create")) {
                 processCreate(tracker, sc);
             } else if (input.equals("get")) {
-                processGetPerson(tracker, sc);
+                processGetPerson(input, tracker, sc);
             } else if (input.equals("list")) {
                 tracker.outputPersonList();
             } else if (input.equals("save")) {
@@ -63,11 +63,45 @@ public class HealthierLives {
         tracker.addPerson(input);
     }
 
-    public static void processGetPerson(HealthierLives tracker, Scanner sc) {
-        String input = "";
+    public static void processGetPerson(String input, HealthierLives tracker, Scanner sc) {
         System.out.println("Input a name to search for");
         input = sc.nextLine();
-        tracker.getPersonFromList(input);
+        Person p = tracker.getPersonFromList(input);
+        System.out.println("Would you like to add a food, or list the foods eaten? Enter add/list");
+        input = sc.nextLine();
+        if (input.equals("add")) {
+            System.out.println("Enter meal or simple food");
+            input = sc.nextLine();
+            if (input.equals("meal")) {
+                processAddMeal(p, input, sc);
+            } else if (input.equals("food")) {
+                processAddSimpleFood(p, input, sc);
+            }
+        }
+        if (input.equals("list")) {
+            System.out.println(p.getFoodsEaten());
+        }
+    }
+
+    public static void processAddMeal(Person p, String input, Scanner sc) {
+        System.out.println("enter meal name");
+        input = sc.nextLine();
+        MealFood food = new MealFood(input, new Calendar.Builder().build());
+        System.out.println("input ingredients names followed by calorie one by one, type end when done");
+        input = sc.nextLine();
+        while (!input.equals("end")) {
+            String[] foodInput = input.split(" ");
+            food.addIngredient(new Ingredient(foodInput[0], Integer.parseInt(foodInput[1])));
+            input = sc.nextLine();
+        }
+        p.addFood(food);
+    }
+
+    public static void processAddSimpleFood(Person p, String input, Scanner sc) {
+        System.out.println("Enter food name and calories");
+        input = sc.nextLine();
+        String[] foodInput = input.split(" ");
+        p.addFood(new SimpleFood(foodInput[0], new Calendar.Builder().build(), Integer.parseInt(foodInput[1])));
     }
 
     private static void savePersonListToFile(HealthierLives healthierLives) {
@@ -75,16 +109,17 @@ public class HealthierLives {
         for (int i = 0; i < healthierLives.personList.size(); i++) {
             if (i == 0) {
                 healthierLives.personList.get(i).save(false);
-                continue;
+
+            } else {
+                healthierLives.personList.get(i).save(true);
             }
-            healthierLives.personList.get(i).save(true);
         }
     }
 
     private static void loadPersonListFromFile(HealthierLives healthierLives) {
-        Person loadPerson = new Person("Loader", 0);
-        ArrayList<Object> loader = new ArrayList<>();
-        loader = loadPerson.load();
+        LoadableAndSaveable loadPerson = new Person("Loader", 0);
+
+        ArrayList<Object> loader = loadPerson.load();
         for (Object personObj : loader) {
             healthierLives.personList.add((Person) personObj);
         }
@@ -107,12 +142,14 @@ public class HealthierLives {
     }
 
     //EFFECTS: finds the given person in the list, prints out their info
-    public void getPersonFromList(String person) {
+    public Person getPersonFromList(String person) throws NullPointerException {
         for (Person p : personList) {
             if (p.getName().equals(person)) {
                 printPersonInformation(p);
+                return p;
             }
         }
+        throw new NullPointerException();
     }
 
     //EFFECTS: prints out the given persons information

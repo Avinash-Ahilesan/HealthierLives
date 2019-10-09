@@ -2,6 +2,7 @@ package placeholder.model;
 
 import model.Food;
 import model.FoodContainer;
+import model.SimpleFood;
 import org.junit.jupiter.api.*;
 
 
@@ -9,7 +10,7 @@ import java.util.Calendar;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class FoodTest {
+public class SimpleFoodTest {
 
     Food testFood;
     Calendar testDate;
@@ -17,7 +18,7 @@ public class FoodTest {
     @BeforeEach
     public void setup() {
         testDate = new Calendar.Builder().setDate(2015, 5, 7).build();
-        testFood = new Food("apple", testDate, 100);
+        testFood = new SimpleFood("apple", testDate, 100);
     }
 
     @Test

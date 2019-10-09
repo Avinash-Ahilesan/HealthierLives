@@ -1,8 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
-public class Food {
+public abstract class Food implements Serializable {
 
 
     private String name;
@@ -14,12 +15,17 @@ public class Food {
         return calories;
     }
 
-    private int calories;
+    public abstract int getProteinCountGrams();
 
-    public Food(String name, Calendar date, int calorieCount) {
+    public abstract int getCarbohydrateCountGrams();
+
+    public abstract int getFatCountGrams();
+
+    protected int calories;
+
+    public Food(String name, Calendar date) {
         this.name = name;
         this.date = date;
-        this.calories = calorieCount;
     }
 
     //EFFECTS: Returns the name of the food
@@ -47,4 +53,8 @@ public class Food {
         return false;
     }
 
+    @Override
+    public String toString() {
+        return name + " " + calories;
+    }
 }

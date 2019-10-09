@@ -15,6 +15,13 @@ public class Person implements LoadableAndSaveable {
         this.age = age;
     }
 
+    public void addFood(Food food) {
+        foodEaten.addFood(food);
+    }
+
+    public String getFoodsEaten() {
+        return foodEaten.getFoodsEaten();
+    }
 
     //EFFECTS: Returns the name and age of the person
     @Override
@@ -108,5 +115,6 @@ public class Person implements LoadableAndSaveable {
         }
         return false;
     }
+
 
 }

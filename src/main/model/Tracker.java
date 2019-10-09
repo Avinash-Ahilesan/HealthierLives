@@ -1,6 +1,6 @@
 package model;
 
-interface Tracker {
+public interface Tracker {
 
     //EFFECTS: Generates a table filled with the recordings
     void generateTable();
