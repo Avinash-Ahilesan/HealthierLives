@@ -39,19 +39,7 @@ public class HealthierLives {
         String input = sc.nextLine();
         while (!input.equals("exit")) {
             try {
-                if (input.equals("create")) {
-                    processCreate(tracker, sc);
-                } else if (input.equals("get")) {
-                    processGetPerson(tracker, sc);
-                } else if (input.equals("list")) {
-                    tracker.outputPersonList();
-                } else if (input.equals("save")) {
-                    savePersonListToFile(tracker);
-                } else if (input.equals("load")) {
-                    loadPersonListFromFile(tracker);
-                } else if (input.equals("exit")) {
-                    break;
-                }
+                runHelper(input, tracker);
             } catch (NoSuchPersonException e) {
                 System.out.println("No such person found!");
             } catch (IncorrectParametersException e) {
@@ -64,6 +52,23 @@ public class HealthierLives {
             }
         }
     }
+
+    private static void runHelper(String input, HealthierLives tracker)
+            throws IncorrectParametersException, NoSuchPersonException {
+        Scanner sc = new Scanner(System.in);
+        if (input.equals("create")) {
+            processCreate(tracker, sc);
+        } else if (input.equals("get")) {
+            processGetPerson(tracker, sc);
+        } else if (input.equals("list")) {
+            tracker.outputPersonList();
+        } else if (input.equals("save")) {
+            savePersonListToFile(tracker);
+        } else if (input.equals("load")) {
+            loadPersonListFromFile(tracker);
+        }
+    }
+
 
     public static void processCreate(HealthierLives tracker, Scanner sc) throws IncorrectParametersException {
         String input = "";

@@ -38,11 +38,16 @@ public class MealFood extends Food {
         ingredients.addFood(food);
     }
 
-    public String getIngredient() {
+    public String getIngredients() {
         return ingredients.getFoodsEaten();
     }
 
     public List<Food> getFoodsEatenList() {
         return ingredients.getFoodsList();
+    }
+
+    @Override
+    public String toString() {
+        return super.getName() + " " + this.getCalories();
     }
 }

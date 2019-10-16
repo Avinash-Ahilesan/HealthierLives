@@ -1,19 +1,28 @@
 package placeholder.model;
 
+import model.Ingredient;
+import model.MealFood;
 import model.Person;
+import model.SimpleFood;
 import org.junit.jupiter.api.*;
 import ui.IncorrectParametersException;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PersonTest {
     Person person;
-
+    SimpleFood testFood1;
+    Ingredient testIngredient1;
+    Calendar testDate1;
     @BeforeEach
     private void setUp() {
         person = new Person("Avinash", 19);
+        testDate1 = new Calendar.Builder().setDate(2019, 3,23).build();
+        testFood1 = new SimpleFood("test",testDate1,25 );
+        testIngredient1 = new Ingredient("Test Ingredient", 123);
     }
 
     @Test
@@ -93,6 +102,20 @@ public class PersonTest {
     public void testEqualsFalse(){
         Person person2 = new Person(person.getName(),32);
         assertFalse(person.equals(person2));
+    }
+
+    @Test
+    public void testFoodsEatenWithSimpleFood() {
+        person.addFood(testFood1);
+        assertEquals("test 25\n", person.getFoodsEaten());
+    }
+
+    @Test
+    public void testFoodsEatenWithMeal() {
+        MealFood meal = new MealFood("abc", testDate1);
+        meal.addIngredient(testIngredient1);
+        person.addFood(meal);
+        assertEquals("abc 123\n", person.getFoodsEaten());
     }
 
 

@@ -71,6 +71,8 @@ public class FoodContainerTest {
     public void testGetFoodsEaten() {
         foodContainer.addFood(apple);
         foodContainer.addFood(banana);
+
+        assertEquals("apple 100\nbanana 50\n", foodContainer.getFoodsEaten());
     }
 
     @Test
@@ -112,5 +114,28 @@ public class FoodContainerTest {
         foodContainer.addFood(apple);
         foodContainer.addFood(banana);
         assertEquals(89,foodContainer.getCarbohydrateTotalGrams());
+    }
+
+    @Test
+    public void testEqualsTrue(){
+        foodContainer.addFood(apple);
+        foodContainer.addFood(banana);
+
+        FoodContainer equalContainer = new FoodContainer();
+        equalContainer.addFood(apple);
+        equalContainer.addFood(banana);
+
+        assertTrue(foodContainer.equals(equalContainer));
+    }
+
+    @Test
+    public void testEqualsFalse(){
+        foodContainer.addFood(apple);
+        foodContainer.addFood(banana);
+
+        FoodContainer equalContainer = new FoodContainer();
+        equalContainer.addFood(banana);
+
+        assertFalse(foodContainer.equals(equalContainer));
     }
 }
