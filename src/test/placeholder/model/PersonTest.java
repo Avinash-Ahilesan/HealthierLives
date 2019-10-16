@@ -2,6 +2,7 @@ package placeholder.model;
 
 import model.Person;
 import org.junit.jupiter.api.*;
+import ui.IncorrectParametersException;
 
 import java.util.ArrayList;
 
@@ -40,18 +41,35 @@ public class PersonTest {
     }
 
     @Test
-    public void testParseString() {
-        Person person = Person.parseString("Avinash 25"); // 1 space
-        assertEquals("Avinash", person.getName());
-        assertEquals(25, person.getAge());
+    public void testParseStringNoException() {
+        try {
+            Person person = Person.parseString("Avinash 25"); // 1 space
+            assertEquals("Avinash", person.getName());
+            assertEquals(25, person.getAge());
 
-        person = Person.parseString("Bleh  16"); // 2 spaces
-        assertEquals("Bleh", person.getName());
-        assertEquals(16, person.getAge());
+            person = Person.parseString("Bleh  16"); // 2 spaces
+            assertEquals("Bleh", person.getName());
+            assertEquals(16, person.getAge());
+        } catch (IncorrectParametersException e){
+            fail();
+        }
 
         /*person = Person.parseString("Avinash24");
         assertEquals("Avinash", person.getName());
         assertEquals(24, person.getAge());*/
+    }
+
+    @Test
+    public void testParseStringExceptionThrown() {
+        try {
+            Person person = Person.parseString("Avinash25"); // 1 space
+            fail();
+            assertEquals("Avinash", person.getName());
+            assertEquals(25, person.getAge());
+        } catch (IncorrectParametersException e){
+            System.out.println("Success!");
+        }
+
     }
 
     @Test
@@ -63,6 +81,18 @@ public class PersonTest {
 
         assertEquals(person, loadedPerson);
 
+    }
+
+    @Test
+    public void testEqualsTrue(){
+        Person person2 = new Person(person.getName(), person.getAge());
+        assertTrue(person.equals(person2));
+    }
+
+    @Test
+    public void testEqualsFalse(){
+        Person person2 = new Person(person.getName(),32);
+        assertFalse(person.equals(person2));
     }
 
 

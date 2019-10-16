@@ -6,14 +6,16 @@ import model.SimpleFood;
 import org.junit.jupiter.api.*;
 
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class FoodContainerTest {
     FoodContainer foodContainer;
-    Food apple;
-    Food banana;
+    SimpleFood apple;
+    SimpleFood banana;
     Calendar date1;
     Calendar date2;
 
@@ -63,5 +65,52 @@ public class FoodContainerTest {
         assertEquals(1, foodContainer.getFoodCount());
         foodContainer.addFood(banana);
         assertEquals(2, foodContainer.getFoodCount());
+    }
+
+    @Test
+    public void testGetFoodsEaten() {
+        foodContainer.addFood(apple);
+        foodContainer.addFood(banana);
+    }
+
+    @Test
+    public void testGetFoodsEatenList() {
+        foodContainer.addFood(apple);
+        foodContainer.addFood(banana);
+        List<Food> foodList = new ArrayList<>();
+        foodList.add(apple);
+        foodList.add(banana);
+        List<Food> foodsEatenList = foodContainer.getFoodsList();
+        assertEquals(foodList ,foodsEatenList);
+
+    }
+
+    @Test
+    public void testGetProteinCount(){
+        apple.setMacroCountGrams(15,35,23);
+        banana.setMacroCountGrams(25,54,53);
+
+        foodContainer.addFood(apple);
+        foodContainer.addFood(banana);
+        assertEquals(40,foodContainer.getProteinTotalGrams());
+
+    }
+    @Test
+    public void testGetFatCount(){
+        apple.setMacroCountGrams(15,35,23);
+        banana.setMacroCountGrams(25,54,53);
+        foodContainer.addFood(apple);
+        foodContainer.addFood(banana);
+        assertEquals(76,foodContainer.getFatsTotalGrams());
+
+    }
+    @Test
+    public void testGetCarbohydrateCount(){
+        apple.setMacroCountGrams(15,35,23);
+        banana.setMacroCountGrams(25,54,53);
+
+        foodContainer.addFood(apple);
+        foodContainer.addFood(banana);
+        assertEquals(89,foodContainer.getCarbohydrateTotalGrams());
     }
 }

@@ -8,7 +8,10 @@ public class SimpleFood extends Food {
     private int fats;
 
 
-
+    @Override
+    public int getCalories() {
+        return calories;
+    }
 
     @Override
     public int getProteinCountGrams() {

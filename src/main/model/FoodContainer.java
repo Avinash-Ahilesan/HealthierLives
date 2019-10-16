@@ -3,6 +3,8 @@ package model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.List;
 
 public class FoodContainer implements Serializable {
     private ArrayList<Food> foodList;
@@ -26,7 +28,7 @@ public class FoodContainer implements Serializable {
     public int getFatsTotalGrams() {
         int fatCount = 0;
         for (Food food : foodList) {
-            fatCount += food.getCarbohydrateCountGrams();
+            fatCount += food.getFatCountGrams();
         }
         return fatCount;
     }
@@ -87,5 +89,9 @@ public class FoodContainer implements Serializable {
             builder.append(food.toString() + "\n");
         }
         return builder.toString();
+    }
+
+    public List<Food> getFoodsList() {
+        return Collections.unmodifiableList(foodList);
     }
 }

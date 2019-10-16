@@ -9,5 +9,9 @@ public class Ingredient extends SimpleFood {
         this.calories = calorieCount;
     }
 
+    @Override
+    public int getCalories() {
+        return super.getCalories();
+    }
 
 }

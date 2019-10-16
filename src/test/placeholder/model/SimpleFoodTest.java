@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class SimpleFoodTest {
 
-    Food testFood;
+    SimpleFood testFood;
     Calendar testDate;
 
     @BeforeEach
@@ -35,5 +35,13 @@ public class SimpleFoodTest {
     @Test
     public void testGetDate() {
         assertEquals(testDate, testFood.getDate());
+    }
+
+    @Test
+    public void testSetMacroCountAndGetMacro(){
+        testFood.setMacroCountGrams(10,20,30);
+        assertEquals(10, testFood.getProteinCountGrams());
+        assertEquals(20, testFood.getCarbohydrateCountGrams());
+        assertEquals(30, testFood.getFatCountGrams());
     }
 }

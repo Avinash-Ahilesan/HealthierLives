@@ -1,5 +1,7 @@
 package model;
 
+import ui.IncorrectParametersException;
+
 import java.io.*;
 import java.util.ArrayList;
 
@@ -57,8 +59,11 @@ public class Person implements LoadableAndSaveable {
     //          separated by at least one space
     //EFFECTS: returns a new person with name and age
     //         contained in string
-    public static Person parseString(String personString) {
+    public static Person parseString(String personString) throws IncorrectParametersException {
         String[] personParams = personString.split("\\s+");
+        if (personParams.length < 2) {
+            throw new IncorrectParametersException();
+        }
         return new Person(personParams[0], Integer.parseInt(personParams[1]));
     }
 

@@ -9,17 +9,15 @@ public abstract class Food implements Serializable {
     private String name;
     private Calendar date;
 
-
     //EFFECTS: Returns the calories of the food
-    public int getCalories() {
-        return calories;
-    }
+    public abstract int getCalories();
 
     public abstract int getProteinCountGrams();
 
     public abstract int getCarbohydrateCountGrams();
 
     public abstract int getFatCountGrams();
+
 
     protected int calories;
 

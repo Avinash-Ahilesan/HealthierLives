@@ -3,7 +3,6 @@ package ui;
 
 import model.*;
 
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.util.*;
@@ -35,72 +34,96 @@ public class HealthierLives {
     }
 
     public static void run(HealthierLives tracker, Scanner sc) {
-        String input = "";
+        System.out.println("Welcome to HealthTracker!");
+        System.out.println("Enter either create, get, list, save, load, or exit");
+        String input = sc.nextLine();
         while (!input.equals("exit")) {
-            System.out.println("Enter either create, get, list, or exit");
-            input = sc.nextLine();
-            if (input.equals("create")) {
-                processCreate(tracker, sc);
-            } else if (input.equals("get")) {
-                processGetPerson(input, tracker, sc);
-            } else if (input.equals("list")) {
-                tracker.outputPersonList();
-            } else if (input.equals("save")) {
-                savePersonListToFile(tracker);
-            } else if (input.equals("load")) {
-                loadPersonListFromFile(tracker);
-            } else if (input.equals("exit")) {
-                break;
+            try {
+                if (input.equals("create")) {
+                    processCreate(tracker, sc);
+                } else if (input.equals("get")) {
+                    processGetPerson(tracker, sc);
+                } else if (input.equals("list")) {
+                    tracker.outputPersonList();
+                } else if (input.equals("save")) {
+                    savePersonListToFile(tracker);
+                } else if (input.equals("load")) {
+                    loadPersonListFromFile(tracker);
+                } else if (input.equals("exit")) {
+                    break;
+                }
+            } catch (NoSuchPersonException e) {
+                System.out.println("No such person found!");
+            } catch (IncorrectParametersException e) {
+                System.out.println("You forgot a parameter!");
+            } catch (NumberFormatException e) {
+                System.out.println("You entered a string somewhere you should've put a number!");
+            } finally {
+                System.out.println("Enter either create, get, list, save, load, or exit");
+                input = sc.nextLine();
             }
-
         }
     }
 
-    public static void processCreate(HealthierLives tracker, Scanner sc) {
+    public static void processCreate(HealthierLives tracker, Scanner sc) throws IncorrectParametersException {
         String input = "";
         System.out.println("Enter a name followed by an age");
         input = sc.nextLine();
         tracker.addPerson(input);
     }
 
-    public static void processGetPerson(String input, HealthierLives tracker, Scanner sc) {
+    public static void processGetPerson(HealthierLives tracker, Scanner sc)
+            throws NoSuchPersonException, IncorrectParametersException {
         System.out.println("Input a name to search for");
-        input = sc.nextLine();
+        String input = sc.nextLine();
         Person p = tracker.getPersonFromList(input);
         System.out.println("Would you like to add a food, or list the foods eaten? Enter add/list");
         input = sc.nextLine();
         if (input.equals("add")) {
-            System.out.println("Enter meal or simple food");
-            input = sc.nextLine();
-            if (input.equals("meal")) {
-                processAddMeal(p, input, sc);
-            } else if (input.equals("food")) {
-                processAddSimpleFood(p, input, sc);
-            }
+            helpAddFood(p, sc);
         }
         if (input.equals("list")) {
             System.out.println(p.getFoodsEaten());
         }
+
+
     }
 
-    public static void processAddMeal(Person p, String input, Scanner sc) {
+
+    private static void helpAddFood(Person p, Scanner sc) throws IncorrectParametersException {
+        System.out.println("Enter meal or simple food");
+        String input = sc.nextLine();
+        if (input.equals("meal")) {
+            processAddMeal(p, sc);
+        } else if (input.equals("food")) {
+            processAddSimpleFood(p, input, sc);
+        }
+    }
+
+    public static void processAddMeal(Person p, Scanner sc) throws IncorrectParametersException {
         System.out.println("enter meal name");
-        input = sc.nextLine();
+        String input = sc.nextLine();
         MealFood food = new MealFood(input, new Calendar.Builder().build());
         System.out.println("input ingredients names followed by calorie one by one, type end when done");
         input = sc.nextLine();
         while (!input.equals("end")) {
             String[] foodInput = input.split(" ");
+            if (foodInput.length < 2) {
+                throw new IncorrectParametersException();
+            }
             food.addIngredient(new Ingredient(foodInput[0], Integer.parseInt(foodInput[1])));
             input = sc.nextLine();
         }
         p.addFood(food);
     }
 
-    public static void processAddSimpleFood(Person p, String input, Scanner sc) {
+    public static void processAddSimpleFood(Person p, String input, Scanner sc) throws IncorrectParametersException {
         System.out.println("Enter food name and calories");
         input = sc.nextLine();
         String[] foodInput = input.split(" ");
+        if (foodInput.length < 2) {
+            throw new IncorrectParametersException();
+        }
         p.addFood(new SimpleFood(foodInput[0], new Calendar.Builder().build(), Integer.parseInt(foodInput[1])));
     }
 
@@ -127,7 +150,7 @@ public class HealthierLives {
 
     //MODIFIES: this
     //EFFECTS: converts string into a person object, that's added to list
-    public void addPerson(String personInfo) {
+    public void addPerson(String personInfo) throws IncorrectParametersException {
         Person newPerson = Person.parseString(personInfo);
         personList.add(newPerson);
         System.out.println("Added new person: ");
@@ -142,14 +165,14 @@ public class HealthierLives {
     }
 
     //EFFECTS: finds the given person in the list, prints out their info
-    public Person getPersonFromList(String person) throws NullPointerException {
+    public Person getPersonFromList(String person) throws NoSuchPersonException {
         for (Person p : personList) {
             if (p.getName().equals(person)) {
                 printPersonInformation(p);
                 return p;
             }
         }
-        throw new NullPointerException();
+        throw new NoSuchPersonException();
     }
 
     //EFFECTS: prints out the given persons information

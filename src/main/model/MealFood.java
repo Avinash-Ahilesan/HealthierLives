@@ -1,12 +1,18 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class MealFood extends Food {
     //TODO: Fix Calorie Counter
     private FoodContainer ingredients;
 
 
+    @Override
+    public int getCalories() {
+        return ingredients.getCalorieTotal();
+    }
 
     @Override
     public int getProteinCountGrams() {
@@ -30,6 +36,13 @@ public class MealFood extends Food {
 
     public void addIngredient(SimpleFood food) {
         ingredients.addFood(food);
-        this.calories += food.calories;
+    }
+
+    public String getIngredient() {
+        return ingredients.getFoodsEaten();
+    }
+
+    public List<Food> getFoodsEatenList() {
+        return ingredients.getFoodsList();
     }
 }
