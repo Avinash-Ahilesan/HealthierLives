@@ -28,8 +28,8 @@ public class SimpleFood extends Food {
         return fats;
     }
 
-    public SimpleFood(String name, Calendar date, int calorieCount) {
-        super(name, date);
+    public SimpleFood(String name, Calendar date, int calorieCount, int quantityEaten) {
+        super(name, date, quantityEaten);
         this.calories = calorieCount;
     }
 

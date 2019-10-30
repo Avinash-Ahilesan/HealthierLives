@@ -18,7 +18,7 @@ public class SimpleFoodTest {
     @BeforeEach
     public void setup() {
         testDate = new Calendar.Builder().setDate(2015, 5, 7).build();
-        testFood = new SimpleFood("apple", testDate, 100);
+        testFood = new SimpleFood("apple", testDate, 100, 1);
     }
 
     @Test

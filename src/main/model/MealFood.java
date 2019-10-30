@@ -29,8 +29,8 @@ public class MealFood extends Food {
         return ingredients.getFatsTotalGrams();
     }
 
-    public MealFood(String name, Calendar date) {
-        super(name, date);
+    public MealFood(String name, Calendar date, int quantityEaten) {
+        super(name, date, quantityEaten);
         ingredients = new FoodContainer();
     }
 

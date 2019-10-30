@@ -1,6 +1,8 @@
 package ui;
 
 
+import Exceptions.IncorrectParametersException;
+import Exceptions.NoSuchPersonException;
 import model.*;
 
 import java.io.FileOutputStream;
@@ -108,28 +110,30 @@ public class HealthierLives {
     public static void processAddMeal(Person p, Scanner sc) throws IncorrectParametersException {
         System.out.println("enter meal name");
         String input = sc.nextLine();
-        MealFood food = new MealFood(input, new Calendar.Builder().build());
-        System.out.println("input ingredients names followed by calorie one by one, type end when done");
+        MealFood food = new MealFood(input, new Calendar.Builder().build(), 1);
+        System.out.println("input ingredients names followed by calorie and quantity eaten"
+                + " one by one, type end when done");
         input = sc.nextLine();
         while (!input.equals("end")) {
             String[] foodInput = input.split(" ");
             if (foodInput.length < 2) {
                 throw new IncorrectParametersException();
             }
-            food.addIngredient(new Ingredient(foodInput[0], Integer.parseInt(foodInput[1])));
+            food.addIngredient(new Ingredient(foodInput[0], Integer.parseInt(foodInput[1]),
+                    Integer.parseInt(foodInput[2])));
             input = sc.nextLine();
         }
         p.addFood(food);
     }
 
     public static void processAddSimpleFood(Person p, String input, Scanner sc) throws IncorrectParametersException {
-        System.out.println("Enter food name and calories");
+        System.out.println("Enter food name, calories, and quantity");
         input = sc.nextLine();
         String[] foodInput = input.split(" ");
         if (foodInput.length < 2) {
             throw new IncorrectParametersException();
         }
-        p.addFood(new SimpleFood(foodInput[0], new Calendar.Builder().build(), Integer.parseInt(foodInput[1])));
+        p.addFood(new SimpleFood(foodInput[0], new Calendar.Builder().build(), Integer.parseInt(foodInput[1]), 1));
     }
 
     private static void savePersonListToFile(HealthierLives healthierLives) {

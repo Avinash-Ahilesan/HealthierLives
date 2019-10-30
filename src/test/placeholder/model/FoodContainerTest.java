@@ -24,8 +24,8 @@ public class FoodContainerTest {
         foodContainer = new FoodContainer();
         date1 = new Calendar.Builder().setDate(2019, 5, 29).build();
         date2 = new Calendar.Builder().setDate(2019, 9, 2).build();
-        apple = new SimpleFood("apple", date1, 100);
-        banana = new SimpleFood("banana", date2, 50);
+        apple = new SimpleFood("apple", date1, 100, 1);
+        banana = new SimpleFood("banana", date2, 50, 1);
     }
 
     @Test
@@ -53,7 +53,7 @@ public class FoodContainerTest {
         foodContainer.addFood(banana);
         assertEquals(100, foodContainer.getCalorieTotalByDate(date1)); //1 item test
 
-        Food kiwi = new SimpleFood("kiwi", date2, 25);
+        Food kiwi = new SimpleFood("kiwi", date2, 25, 1);
         foodContainer.addFood(kiwi);
         assertEquals(75, foodContainer.getCalorieTotalByDate(date2)); //2 item test
     }

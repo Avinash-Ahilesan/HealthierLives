@@ -12,6 +12,10 @@ public class HeartRateTracker implements Tracker, LoadableAndSaveable {
         heartRateRecords.add(new HeartRateRecording(date, bpm));
     }
 
+    public void addRecording(TrackerRecording recording) {
+        heartRateRecords.add((HeartRateRecording) recording);
+    }
+
     @Override
     public void generateTable() {
         //TODO: Implement method
@@ -54,7 +58,7 @@ public class HeartRateTracker implements Tracker, LoadableAndSaveable {
     public void save(boolean append) {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(
-                    new File(PATH + "heartRateRecordingSave.txt"), true);
+                    new File(PATH + "heartRateRecordingSave.txt"), append);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
             objectOutputStream.writeObject(this);
             objectOutputStream.close();

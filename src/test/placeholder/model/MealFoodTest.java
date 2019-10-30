@@ -18,8 +18,8 @@ public class MealFoodTest {
     @BeforeEach
     public void setup(){
         date1 =  new Calendar.Builder().setDate(2019, 5, 1).build();
-        testMealFood = new MealFood("test meal", date1);
-        testFood = new SimpleFood("Peaches", date1, 20);
+        testMealFood = new MealFood("test meal", date1, 1);
+        testFood = new SimpleFood("Peaches", date1, 20, 1);
     }
 
     @Test
@@ -40,7 +40,7 @@ public class MealFoodTest {
     public void testAddMultipleFoodsGetCalories(){
 
         testMealFood.addIngredient(testFood);
-        Ingredient ingredient = new Ingredient("testIngredeint", 10);
+        Ingredient ingredient = new Ingredient("testIngredeint", 10, 1);
         testMealFood.addIngredient(ingredient);
         assertEquals(30, testMealFood.getCalories());
 

@@ -78,9 +78,13 @@ public class FoodContainer implements Serializable {
     }
 
     //MODIFIES: this
-    //EFFECTS: adds food to food container
+    //EFFECTS: adds food to food container, and adds this to food's food container
+    //         creating a bi-directional relationship (1 food: many containers)
     public void addFood(Food food) {
-        foodList.add(food);
+        if (!foodList.contains(food)) {
+            foodList.add(food);
+            food.addFoodContainer(this);
+        }
     }
 
     public String getFoodsEaten() {

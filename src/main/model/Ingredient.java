@@ -4,8 +4,8 @@ import java.util.Calendar;
 
 public class Ingredient extends SimpleFood {
 
-    public Ingredient(String name, int calorieCount) {
-        super(name, null, calorieCount);
+    public Ingredient(String name, int calorieCount, int quantityEaten) {
+        super(name, null, calorieCount, quantityEaten);
         this.calories = calorieCount;
     }
 

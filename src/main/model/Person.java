@@ -1,6 +1,6 @@
 package model;
 
-import ui.IncorrectParametersException;
+import Exceptions.IncorrectParametersException;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -15,6 +15,7 @@ public class Person implements LoadableAndSaveable {
         foodEaten = new FoodContainer();
         this.name = name;
         this.age = age;
+
     }
 
     public void addFood(Food food) {
@@ -120,6 +121,4 @@ public class Person implements LoadableAndSaveable {
         }
         return false;
     }
-
-
 }

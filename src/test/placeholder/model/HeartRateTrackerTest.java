@@ -40,7 +40,6 @@ public class HeartRateTrackerTest {
     public void testSaveAndLoad() {
         tracker.save(false);
 
-
         ArrayList<Object> heartRates = tracker.load();
         assertEquals(1, heartRates.size());
         HeartRateTracker loadedTracker = (HeartRateTracker) heartRates.get(0);

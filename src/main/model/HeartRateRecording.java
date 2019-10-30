@@ -1,6 +1,5 @@
 package model;
 
-import java.io.Serializable;
 import java.util.Calendar;
 
 public class HeartRateRecording extends TrackerRecording {

@@ -1,11 +1,11 @@
 package placeholder.model;
 
+import Exceptions.IncorrectParametersException;
 import model.Ingredient;
 import model.MealFood;
 import model.Person;
 import model.SimpleFood;
 import org.junit.jupiter.api.*;
-import ui.IncorrectParametersException;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -21,8 +21,8 @@ public class PersonTest {
     private void setUp() {
         person = new Person("Avinash", 19);
         testDate1 = new Calendar.Builder().setDate(2019, 3,23).build();
-        testFood1 = new SimpleFood("test",testDate1,25 );
-        testIngredient1 = new Ingredient("Test Ingredient", 123);
+        testFood1 = new SimpleFood("test",testDate1,25, 1);
+        testIngredient1 = new Ingredient("Test Ingredient", 123, 1);
     }
 
     @Test
@@ -112,7 +112,7 @@ public class PersonTest {
 
     @Test
     public void testFoodsEatenWithMeal() {
-        MealFood meal = new MealFood("abc", testDate1);
+        MealFood meal = new MealFood("abc", testDate1, 1);
         meal.addIngredient(testIngredient1);
         person.addFood(meal);
         assertEquals("abc 123\n", person.getFoodsEaten());
