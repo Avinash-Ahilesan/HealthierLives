@@ -1,6 +1,6 @@
 package model;
 
-import Exceptions.IncorrectParametersException;
+import exceptions.IncorrectParametersException;
 
 import java.io.*;
 import java.util.ArrayList;

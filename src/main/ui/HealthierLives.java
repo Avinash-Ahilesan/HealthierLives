@@ -1,8 +1,8 @@
 package ui;
 
 
-import Exceptions.IncorrectParametersException;
-import Exceptions.NoSuchPersonException;
+import exceptions.IncorrectParametersException;
+import exceptions.NoSuchPersonException;
 import model.*;
 
 import java.io.FileOutputStream;

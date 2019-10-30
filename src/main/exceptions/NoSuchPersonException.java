@@ -1,4 +1,4 @@
-package Exceptions;
+package exceptions;
 
 public class NoSuchPersonException extends Exception {
 }

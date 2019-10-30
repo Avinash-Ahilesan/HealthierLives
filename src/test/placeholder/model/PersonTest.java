@@ -1,6 +1,6 @@
 package placeholder.model;
 
-import Exceptions.IncorrectParametersException;
+import exceptions.IncorrectParametersException;
 import model.Ingredient;
 import model.MealFood;
 import model.Person;
