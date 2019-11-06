@@ -1,22 +1,35 @@
 package model;
 
 import exceptions.IncorrectParametersException;
+import model.food.Food;
+import model.food.FoodContainer;
+import model.trackers.TrackerManager;
 
 import java.io.*;
 import java.util.ArrayList;
 
-public class Person implements LoadableAndSaveable {
+public class Person implements Serializable {
     private String name;
     private int age;
     private int targetCalories;
     private FoodContainer foodEaten;
+    private TrackerManager tm;
 
     public Person(String name, int age) {
         foodEaten = new FoodContainer();
         this.name = name;
         this.age = age;
-
+        tm = new TrackerManager();
     }
+
+    public void setTargetCalories(int target) {
+        targetCalories = target;
+    }
+
+    public int getTargetCalories() {
+        return targetCalories;
+    }
+
 
     public void addFood(Food food) {
         foodEaten.addFood(food);
@@ -68,42 +81,6 @@ public class Person implements LoadableAndSaveable {
         return new Person(personParams[0], Integer.parseInt(personParams[1]));
     }
 
-
-    @Override
-    public ArrayList<Object> load() {
-        ArrayList<Object> personList = new ArrayList<>();
-        try {
-            FileInputStream file = new FileInputStream(new File(PATH + "todoListData.txt"));
-            ObjectInputStream reader = new ObjectInputStream(file);
-            while (true) {
-                try {
-                    Object person = reader.readObject();
-                    personList.add(person);
-                } catch (Exception ex) {
-                    break;
-                }
-            }
-        } catch (Exception ex) {
-            System.err.println("could not read");
-        }
-        return personList;
-    }
-
-    @Override
-    public void save(boolean append) {
-        try {
-            FileOutputStream fileOutputStream = new FileOutputStream(new File(PATH + "todoListData.txt"), append);
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-            objectOutputStream.writeObject(this);
-            objectOutputStream.close();
-            fileOutputStream.close();
-
-        } catch (FileNotFoundException e) {
-            System.out.println("Could not find file");
-        } catch (IOException e) {
-            System.out.println("IO Exception occured");
-        }
-    }
 
     //EFFECTS: returns true if two objects are equal
     @Override

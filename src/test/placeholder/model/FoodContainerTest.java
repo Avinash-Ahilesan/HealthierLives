@@ -1,13 +1,13 @@
 package placeholder.model;
 
-import model.Food;
-import model.FoodContainer;
-import model.SimpleFood;
+import model.food.Food;
+import model.food.FoodContainer;
+import model.food.SimpleFood;
 import org.junit.jupiter.api.*;
 
 
 import java.util.ArrayList;
-import java.util.Calendar;
+import model.TimeStamp;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,14 +16,14 @@ public class FoodContainerTest {
     FoodContainer foodContainer;
     SimpleFood apple;
     SimpleFood banana;
-    Calendar date1;
-    Calendar date2;
+    TimeStamp date1;
+    TimeStamp date2;
 
     @BeforeEach
     public void setup() {
         foodContainer = new FoodContainer();
-        date1 = new Calendar.Builder().setDate(2019, 5, 29).build();
-        date2 = new Calendar.Builder().setDate(2019, 9, 2).build();
+        date1 = new TimeStamp(2019, 5, 29);
+        date2 = new TimeStamp(2019, 9, 2);
         apple = new SimpleFood("apple", date1, 100, 1);
         banana = new SimpleFood("banana", date2, 50, 1);
     }
@@ -63,6 +63,7 @@ public class FoodContainerTest {
         assertEquals(0, foodContainer.getFoodCount());
         foodContainer.addFood(apple);
         assertEquals(1, foodContainer.getFoodCount());
+        assertEquals(1, apple.getContainersIn());
         foodContainer.addFood(banana);
         assertEquals(2, foodContainer.getFoodCount());
     }
@@ -72,7 +73,7 @@ public class FoodContainerTest {
         foodContainer.addFood(apple);
         foodContainer.addFood(banana);
 
-        assertEquals("apple 100\nbanana 50\n", foodContainer.getFoodsEaten());
+        assertEquals("apple 100 29/5/2019\nbanana 50 2/9/2019\n", foodContainer.getFoodsEaten());
     }
 
     @Test

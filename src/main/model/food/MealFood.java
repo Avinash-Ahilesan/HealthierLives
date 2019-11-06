@@ -1,6 +1,7 @@
-package model;
+package model.food;
 
-import java.util.ArrayList;
+import model.TimeStamp;
+
 import java.util.Calendar;
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class MealFood extends Food {
         return ingredients.getFatsTotalGrams();
     }
 
-    public MealFood(String name, Calendar date, int quantityEaten) {
+    public MealFood(String name, TimeStamp date, int quantityEaten) {
         super(name, date, quantityEaten);
         ingredients = new FoodContainer();
     }

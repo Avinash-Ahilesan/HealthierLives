@@ -1,4 +1,6 @@
-package model;
+package model.food;
+
+import model.TimeStamp;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -52,7 +54,7 @@ public class FoodContainer implements Serializable {
     }
 
     //EFFECTS: returns total calories consumed on specific date
-    public int getCalorieTotalByDate(Calendar date) {
+    public int getCalorieTotalByDate(TimeStamp date) {
         int calorieTotal = 0;
         for (Food food : foodList) {
             if (food.getDate().equals(date)) {

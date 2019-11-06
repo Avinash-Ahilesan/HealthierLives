@@ -4,6 +4,9 @@ package ui;
 import exceptions.IncorrectParametersException;
 import exceptions.NoSuchPersonException;
 import model.*;
+import model.food.Ingredient;
+import model.food.MealFood;
+import model.food.SimpleFood;
 
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
@@ -110,7 +113,7 @@ public class HealthierLives {
     public static void processAddMeal(Person p, Scanner sc) throws IncorrectParametersException {
         System.out.println("enter meal name");
         String input = sc.nextLine();
-        MealFood food = new MealFood(input, new Calendar.Builder().build(), 1);
+        MealFood food = new MealFood(input, new TimeStamp(0,0,0), 1);
         System.out.println("input ingredients names followed by calorie and quantity eaten"
                 + " one by one, type end when done");
         input = sc.nextLine();
@@ -133,25 +136,24 @@ public class HealthierLives {
         if (foodInput.length < 2) {
             throw new IncorrectParametersException();
         }
-        p.addFood(new SimpleFood(foodInput[0], new Calendar.Builder().build(), Integer.parseInt(foodInput[1]), 1));
+        p.addFood(new SimpleFood(foodInput[0], new TimeStamp(0,0,0), Integer.parseInt(foodInput[1]), 1));
     }
 
     private static void savePersonListToFile(HealthierLives healthierLives) {
 
         for (int i = 0; i < healthierLives.personList.size(); i++) {
             if (i == 0) {
-                healthierLives.personList.get(i).save(false);
+                LoadAndSave.save(false, "todoListData.txt",healthierLives.personList.get(i));
 
             } else {
-                healthierLives.personList.get(i).save(true);
+                LoadAndSave.save(true, "todoListData.txt",healthierLives.personList.get(i));
             }
         }
     }
 
     private static void loadPersonListFromFile(HealthierLives healthierLives) {
-        LoadableAndSaveable loadPerson = new Person("Loader", 0);
 
-        ArrayList<Object> loader = loadPerson.load();
+        ArrayList<Object> loader = LoadAndSave.load("todoListData.txt");
         for (Object personObj : loader) {
             healthierLives.personList.add((Person) personObj);
         }

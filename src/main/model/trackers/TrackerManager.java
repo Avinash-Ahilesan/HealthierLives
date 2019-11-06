@@ -1,11 +1,12 @@
-package model;
+package model.trackers;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import model.trackers.recording.TrackerRecording;
+
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TrackerManager {
+public class TrackerManager implements Serializable {
 
     private Map<TrackerNames, Tracker> trackers;
 

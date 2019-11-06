@@ -1,11 +1,13 @@
-package model;
+package model.trackers.recording;
+
+import model.TimeStamp;
 
 import java.util.Calendar;
 
 public class HeartRateRecording extends TrackerRecording {
     private int bpm;
 
-    public HeartRateRecording(Calendar date, int bpm) {
+    public HeartRateRecording(TimeStamp date, int bpm) {
         super.calendar = date;
         this.bpm = bpm;
     }
@@ -27,6 +29,6 @@ public class HeartRateRecording extends TrackerRecording {
 
     @Override
     public String toString() {
-        return Integer.toString(bpm);
+        return Integer.toString(bpm) + " " + getDate().toString();
     }
 }

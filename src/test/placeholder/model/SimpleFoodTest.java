@@ -1,8 +1,7 @@
 package placeholder.model;
 
-import model.Food;
-import model.FoodContainer;
-import model.SimpleFood;
+import model.TimeStamp;
+import model.food.SimpleFood;
 import org.junit.jupiter.api.*;
 
 
@@ -13,11 +12,11 @@ import static org.junit.jupiter.api.Assertions.*;
 public class SimpleFoodTest {
 
     SimpleFood testFood;
-    Calendar testDate;
+    TimeStamp testDate;
 
     @BeforeEach
     public void setup() {
-        testDate = new Calendar.Builder().setDate(2015, 5, 7).build();
+        testDate = new TimeStamp(2015, 5, 7);
         testFood = new SimpleFood("apple", testDate, 100, 1);
     }
 
@@ -34,6 +33,8 @@ public class SimpleFoodTest {
 
     @Test
     public void testGetDate() {
+        System.out.println(testDate);
+        System.out.println(testFood.getDate());
         assertEquals(testDate, testFood.getDate());
     }
 

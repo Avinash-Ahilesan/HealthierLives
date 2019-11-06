@@ -1,8 +1,9 @@
 package placeholder.model;
 
-import model.Ingredient;
-import model.MealFood;
-import model.SimpleFood;
+import model.TimeStamp;
+import model.food.Ingredient;
+import model.food.MealFood;
+import model.food.SimpleFood;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,11 +14,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class MealFoodTest {
 
     MealFood testMealFood;
-    Calendar date1;
+    TimeStamp date1;
     SimpleFood testFood;
     @BeforeEach
     public void setup(){
-        date1 =  new Calendar.Builder().setDate(2019, 5, 1).build();
+        date1 =  new TimeStamp(2019, 5, 1);
         testMealFood = new MealFood("test meal", date1, 1);
         testFood = new SimpleFood("Peaches", date1, 20, 1);
     }

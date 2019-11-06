@@ -1,7 +1,11 @@
 package placeholder.model;
 
-import model.*;
-import model.TrackerManager.TrackerNames;
+import model.TimeStamp;
+import model.trackers.recording.HeartRateRecording;
+import model.trackers.HeartRateTracker;
+import model.trackers.SleepTracker;
+import model.trackers.TrackerManager;
+import model.trackers.TrackerManager.TrackerNames;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -30,7 +34,7 @@ public class TrackerManagerTest {
 
     @Test
     public void testAddRecording() {
-        Calendar date = new Calendar.Builder().setDate(2019, 2,3).build();
+        TimeStamp date = new TimeStamp(2019, 2,3);
         HeartRateRecording recording = new HeartRateRecording(date, 29);
         tm.addTracker(TrackerNames.HEARTRATE, heartRateTracker);
         tm.addRecording(TrackerNames.HEARTRATE, recording);

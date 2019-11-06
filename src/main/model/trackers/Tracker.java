@@ -1,4 +1,6 @@
-package model;
+package model.trackers;
+
+import model.trackers.recording.TrackerRecording;
 
 public interface Tracker {
 

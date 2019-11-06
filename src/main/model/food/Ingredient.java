@@ -1,6 +1,6 @@
-package model;
+package model.food;
 
-import java.util.Calendar;
+import model.food.SimpleFood;
 
 public class Ingredient extends SimpleFood {
 

@@ -1,10 +1,12 @@
 package placeholder.model;
 
 import exceptions.IncorrectParametersException;
-import model.Ingredient;
-import model.MealFood;
+import model.LoadAndSave;
+import model.TimeStamp;
+import model.food.Ingredient;
+import model.food.MealFood;
 import model.Person;
-import model.SimpleFood;
+import model.food.SimpleFood;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
@@ -16,12 +18,13 @@ public class PersonTest {
     Person person;
     SimpleFood testFood1;
     Ingredient testIngredient1;
-    Calendar testDate1;
+    TimeStamp testDate1;
+
     @BeforeEach
     private void setUp() {
         person = new Person("Avinash", 19);
-        testDate1 = new Calendar.Builder().setDate(2019, 3,23).build();
-        testFood1 = new SimpleFood("test",testDate1,25, 1);
+        testDate1 = new TimeStamp(2019, 3, 23);
+        testFood1 = new SimpleFood("test", testDate1, 25, 1);
         testIngredient1 = new Ingredient("Test Ingredient", 123, 1);
     }
 
@@ -59,7 +62,7 @@ public class PersonTest {
             person = Person.parseString("Bleh  16"); // 2 spaces
             assertEquals("Bleh", person.getName());
             assertEquals(16, person.getAge());
-        } catch (IncorrectParametersException e){
+        } catch (IncorrectParametersException e) {
             fail();
         }
 
@@ -75,7 +78,7 @@ public class PersonTest {
             fail();
             assertEquals("Avinash", person.getName());
             assertEquals(25, person.getAge());
-        } catch (IncorrectParametersException e){
+        } catch (IncorrectParametersException e) {
             System.out.println("Success!");
         }
 
@@ -83,9 +86,9 @@ public class PersonTest {
 
     @Test
     public void testSaveAndLoadSinglePerson() {
-        person.save(false);
+        LoadAndSave.save(false, "todoListData.txt",person);
 
-        ArrayList<Object> loadedPersonList = person.load();
+        ArrayList<Object> loadedPersonList = LoadAndSave.load( "todoListData.txt");
         Person loadedPerson = (Person) loadedPersonList.get(0);
 
         assertEquals(person, loadedPerson);
@@ -93,21 +96,21 @@ public class PersonTest {
     }
 
     @Test
-    public void testEqualsTrue(){
+    public void testEqualsTrue() {
         Person person2 = new Person(person.getName(), person.getAge());
         assertTrue(person.equals(person2));
     }
 
     @Test
-    public void testEqualsFalse(){
-        Person person2 = new Person(person.getName(),32);
+    public void testEqualsFalse() {
+        Person person2 = new Person(person.getName(), 32);
         assertFalse(person.equals(person2));
     }
 
     @Test
     public void testFoodsEatenWithSimpleFood() {
         person.addFood(testFood1);
-        assertEquals("test 25\n", person.getFoodsEaten());
+        assertEquals("test 25 23/3/2019\n", person.getFoodsEaten());
     }
 
     @Test
@@ -118,5 +121,10 @@ public class PersonTest {
         assertEquals("abc 123\n", person.getFoodsEaten());
     }
 
+    @Test
+    public void testTargetCaloriesGetAndSet() {
+        person.setTargetCalories(100);
+        assertEquals(100, person.getTargetCalories());
+    }
 
 }

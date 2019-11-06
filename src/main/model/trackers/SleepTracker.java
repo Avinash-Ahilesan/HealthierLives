@@ -1,8 +1,8 @@
-package model;
+package model.trackers;
 
-import java.util.ArrayList;
+import model.trackers.recording.TrackerRecording;
 
-public class SleepTracker implements Tracker, LoadableAndSaveable {
+public class SleepTracker implements Tracker {
     //TODO: Implement class
 
     @Override
@@ -22,13 +22,4 @@ public class SleepTracker implements Tracker, LoadableAndSaveable {
         return null;
     }
 
-    @Override
-    public ArrayList<Object> load() {
-        return null;
-    }
-
-    @Override
-    public void save(boolean append) {
-
-    }
 }

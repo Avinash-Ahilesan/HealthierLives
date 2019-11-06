@@ -1,4 +1,6 @@
-package model;
+package model.food;
+
+import model.TimeStamp;
 
 import java.util.Calendar;
 
@@ -28,7 +30,7 @@ public class SimpleFood extends Food {
         return fats;
     }
 
-    public SimpleFood(String name, Calendar date, int calorieCount, int quantityEaten) {
+    public SimpleFood(String name, TimeStamp date, int calorieCount, int quantityEaten) {
         super(name, date, quantityEaten);
         this.calories = calorieCount;
     }

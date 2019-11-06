@@ -1,4 +1,6 @@
-package model;
+package model.food;
+
+import model.TimeStamp;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -9,7 +11,9 @@ public abstract class Food implements Serializable {
 
     List<FoodContainer> foodsUsedInList;
     private String name;
-    private Calendar date;
+    private TimeStamp date;
+    protected int calories;
+
 
     public int getNumEaten() {
         return numEaten;
@@ -38,9 +42,13 @@ public abstract class Food implements Serializable {
         }
     }
 
-    protected int calories;
+    public int getContainersIn() {
+        return foodsUsedInList.size();
+    }
 
-    public Food(String name, Calendar date, int quantityEaten) {
+
+
+    public Food(String name, TimeStamp date, int quantityEaten) {
         this.name = name;
         this.date = date;
         this.numEaten = quantityEaten;
@@ -53,8 +61,8 @@ public abstract class Food implements Serializable {
     }
 
     //EFFECTS: Returns the date the food was consumed
-    public Calendar getDate() {
-        return date;
+    public TimeStamp getDate() {
+        return new TimeStamp(date);
     }
 
     @Override
@@ -79,6 +87,6 @@ public abstract class Food implements Serializable {
 
     @Override
     public String toString() {
-        return name + " " + calories;
+        return name + " " + calories + " " + date.toString();
     }
 }
