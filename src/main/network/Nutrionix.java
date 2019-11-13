@@ -19,6 +19,10 @@ public class Nutrionix {
     private String apiKey = "2106962a026217738b1c97202cdf130a";
 
     //quoted from: https://www.mkyong.com/webservices/jax-rs/restfull-java-client-with-java-net-url/
+    public String findCaloriesBurned() {
+        return "";
+    }
+
     public String searchFood(String query) {
         try {
             URL url = new URL("https://trackapi.nutritionix.com/v2/search/instant?query=grilled cheese");
