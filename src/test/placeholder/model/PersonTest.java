@@ -3,6 +3,7 @@ package placeholder.model;
 import exceptions.IncorrectParametersException;
 import model.LoadAndSave;
 import model.TimeStamp;
+import model.food.Food;
 import model.food.Ingredient;
 import model.food.MealFood;
 import model.Person;
@@ -125,6 +126,13 @@ public class PersonTest {
     public void testTargetCaloriesGetAndSet() {
         person.setTargetCalories(100);
         assertEquals(100, person.getTargetCalories());
+    }
+
+    @Test
+    public void testNotifier() {
+        person.setTargetCalories(100);
+        person.addFood(new SimpleFood("Jack", new TimeStamp(2019, 2, 3), 150,1));
+
     }
 
 }

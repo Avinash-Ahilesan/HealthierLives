@@ -7,6 +7,8 @@ import model.*;
 import model.food.Ingredient;
 import model.food.MealFood;
 import model.food.SimpleFood;
+import network.KanyeQuoteFetcher;
+import network.Nutrionix;
 
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
@@ -15,11 +17,13 @@ import java.util.*;
 public class HealthierLives {
     private ArrayList<Person> personList;
     private static final String PROFILE_PATH = "./data/todoListData.txt";
+    private static KanyeQuoteFetcher kqf;
 
     public static void main(String[] args) {
         HealthierLives tracker = new HealthierLives();
         tracker.personList = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
+        kqf = new KanyeQuoteFetcher();
         run(tracker, sc);
 
     }
@@ -40,7 +44,8 @@ public class HealthierLives {
 
     public static void run(HealthierLives tracker, Scanner sc) {
         System.out.println("Welcome to HealthTracker!");
-        System.out.println("Enter either create, get, list, save, load, or exit");
+        System.out.println(kqf.getQuote());
+        System.out.println("Enter either create, get, list, save, load, find food or exit");
         String input = sc.nextLine();
         while (!input.equals("exit")) {
             try {
@@ -71,15 +76,30 @@ public class HealthierLives {
             savePersonListToFile(tracker);
         } else if (input.equals("load")) {
             loadPersonListFromFile(tracker);
+        } else if (input.equals("find food")) {
+            findFoodHelper(sc);
         }
     }
 
+    private static void findFoodHelper(Scanner sc) {
+        Nutrionix foodFinder = new Nutrionix();
+        System.out.println("Enter food to search for: ");
+        String query = sc.nextLine();
+        System.out.println(foodFinder.searchFood(query));
+
+    }
 
     public static void processCreate(HealthierLives tracker, Scanner sc) throws IncorrectParametersException {
         String input = "";
         System.out.println("Enter a name followed by an age");
         input = sc.nextLine();
-        tracker.addPerson(input);
+        Person p = Person.parseString(input);
+        System.out.println("Now enter target calories");
+        String calories = sc.nextLine();
+        int targetCalories = Integer.parseInt(calories);
+        p.setTargetCalories(targetCalories);
+        tracker.addPerson(p);
+
     }
 
     public static void processGetPerson(HealthierLives tracker, Scanner sc)
@@ -113,7 +133,7 @@ public class HealthierLives {
     public static void processAddMeal(Person p, Scanner sc) throws IncorrectParametersException {
         System.out.println("enter meal name");
         String input = sc.nextLine();
-        MealFood food = new MealFood(input, new TimeStamp(0,0,0), 1);
+        MealFood food = new MealFood(input, new TimeStamp(0, 0, 0), 1);
         System.out.println("input ingredients names followed by calorie and quantity eaten"
                 + " one by one, type end when done");
         input = sc.nextLine();
@@ -136,17 +156,18 @@ public class HealthierLives {
         if (foodInput.length < 2) {
             throw new IncorrectParametersException();
         }
-        p.addFood(new SimpleFood(foodInput[0], new TimeStamp(0,0,0), Integer.parseInt(foodInput[1]), 1));
+        p.addFood(new SimpleFood(foodInput[0], new TimeStamp(0, 0, 0), Integer.parseInt(foodInput[1]),
+                Integer.parseInt(foodInput[2])));
     }
 
     private static void savePersonListToFile(HealthierLives healthierLives) {
 
         for (int i = 0; i < healthierLives.personList.size(); i++) {
             if (i == 0) {
-                LoadAndSave.save(false, "todoListData.txt",healthierLives.personList.get(i));
+                LoadAndSave.save(false, "todoListData.txt", healthierLives.personList.get(i));
 
             } else {
-                LoadAndSave.save(true, "todoListData.txt",healthierLives.personList.get(i));
+                LoadAndSave.save(true, "todoListData.txt", healthierLives.personList.get(i));
             }
         }
     }
@@ -166,6 +187,10 @@ public class HealthierLives {
         personList.add(newPerson);
         System.out.println("Added new person: ");
         printPersonInformation(newPerson);
+    }
+
+    public void addPerson(Person p) {
+        personList.add(p);
     }
 
     //EFFECTS: outputs the people in the list
@@ -190,5 +215,6 @@ public class HealthierLives {
     public void printPersonInformation(Person p) {
         System.out.println("Person's name is " + p.getName() + " with age " + p.getAge());
     }
+
 
 }

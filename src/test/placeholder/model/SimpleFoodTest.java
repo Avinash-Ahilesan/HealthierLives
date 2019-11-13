@@ -45,4 +45,11 @@ public class SimpleFoodTest {
         assertEquals(20, testFood.getCarbohydrateCountGrams());
         assertEquals(30, testFood.getFatCountGrams());
     }
+
+    @Test
+    public void testEquals() {
+        SimpleFood apple = new SimpleFood("apple", new TimeStamp(2019, 2, 4), 100, 1);
+        SimpleFood apple2 = new SimpleFood("apple", new TimeStamp(2019, 2, 4), 150, 1);
+        assertFalse(apple.equals(apple2));
+    }
 }

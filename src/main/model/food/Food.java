@@ -74,7 +74,7 @@ public abstract class Food implements Serializable {
             return false;
         }
         Food food = (Food) obj;
-        if (calories == this.calories && date.equals(food.date) && name.equals(food.name)) {
+        if (food.calories == this.calories && date.equals(food.date) && name.equals(food.name)) {
             return true;
         }
         return false;

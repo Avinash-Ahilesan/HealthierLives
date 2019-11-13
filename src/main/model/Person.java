@@ -6,9 +6,9 @@ import model.food.FoodContainer;
 import model.trackers.TrackerManager;
 
 import java.io.*;
-import java.util.ArrayList;
+import java.util.Observable;
 
-public class Person implements Serializable {
+public class Person extends Observable implements Serializable {
     private String name;
     private int age;
     private int targetCalories;
@@ -16,6 +16,7 @@ public class Person implements Serializable {
     private TrackerManager tm;
 
     public Person(String name, int age) {
+        addObserver(new NotificationSender());
         foodEaten = new FoodContainer();
         this.name = name;
         this.age = age;
@@ -33,6 +34,11 @@ public class Person implements Serializable {
 
     public void addFood(Food food) {
         foodEaten.addFood(food);
+        System.out.println(foodEaten.getCalorieTotal());
+        if (isPastTargetCalories()) {
+            setChanged();
+            notifyObservers(this);
+        }
     }
 
     public String getFoodsEaten() {
@@ -94,6 +100,13 @@ public class Person implements Serializable {
         Person person = (Person) obj;
         if (person.name.equals(this.name) && person.age == this.age
                 && person.foodEaten.equals(foodEaten) && targetCalories == person.targetCalories) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isPastTargetCalories() {
+        if (foodEaten.getCalorieTotal() > targetCalories) {
             return true;
         }
         return false;
