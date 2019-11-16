@@ -14,6 +14,6 @@ public class NutrionixTest {
 
     @Test
     public void testSearchFood() {
-        System.out.println(ix.searchFood("grilled cheese"));
+        System.out.println(ix.getFood("big mac"));
     }
 }

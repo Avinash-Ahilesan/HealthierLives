@@ -17,13 +17,11 @@ import java.util.*;
 public class HealthierLives {
     private ArrayList<Person> personList;
     private static final String PROFILE_PATH = "./data/todoListData.txt";
-    private static KanyeQuoteFetcher kqf;
 
     public static void main(String[] args) {
         HealthierLives tracker = new HealthierLives();
         tracker.personList = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
-        kqf = new KanyeQuoteFetcher();
         run(tracker, sc);
 
     }
@@ -44,7 +42,7 @@ public class HealthierLives {
 
     public static void run(HealthierLives tracker, Scanner sc) {
         System.out.println("Welcome to HealthTracker!");
-        System.out.println(kqf.getQuote());
+        System.out.println(KanyeQuoteFetcher.getInstance().getQuote());
         System.out.println("Enter either create, get, list, save, load, find food or exit");
         String input = sc.nextLine();
         while (!input.equals("exit")) {
@@ -85,7 +83,7 @@ public class HealthierLives {
         Nutrionix foodFinder = new Nutrionix();
         System.out.println("Enter food to search for: ");
         String query = sc.nextLine();
-        System.out.println(foodFinder.searchFood(query));
+        System.out.println(foodFinder.getFood(query));
 
     }
 

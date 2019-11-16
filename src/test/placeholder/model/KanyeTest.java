@@ -10,7 +10,7 @@ public class KanyeTest {
 
     @BeforeEach
     public void setup() {
-        kqf = new KanyeQuoteFetcher();
+        kqf = KanyeQuoteFetcher.getInstance();
     }
 
     @Test

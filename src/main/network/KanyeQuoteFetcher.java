@@ -14,6 +14,18 @@ import com.google.gson.JsonObject;
 public class KanyeQuoteFetcher {
 
     private HttpURLConnection connection;
+    private static KanyeQuoteFetcher kanyeQuoteFetcher;
+
+    private KanyeQuoteFetcher() {
+
+    }
+
+    public static KanyeQuoteFetcher getInstance() {
+        if (kanyeQuoteFetcher == null) {
+            return new KanyeQuoteFetcher();
+        }
+        return kanyeQuoteFetcher;
+    }
 
     //quoted from: https://www.mkyong.com/webservices/jax-rs/restfull-java-client-with-java-net-url/
     public String getQuote() {
