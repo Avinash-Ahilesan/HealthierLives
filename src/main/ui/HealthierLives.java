@@ -26,6 +26,7 @@ public class HealthierLives {
 
     }
 
+
     public static void saveProfileToFile(Person personsToSave) {
 
         try {

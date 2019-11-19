@@ -3,7 +3,6 @@ package placeholder.model;
 import exceptions.IncorrectParametersException;
 import model.LoadAndSave;
 import model.TimeStamp;
-import model.food.Food;
 import model.food.Ingredient;
 import model.food.MealFood;
 import model.Person;
@@ -11,7 +10,6 @@ import model.food.SimpleFood;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -23,7 +21,7 @@ public class PersonTest {
 
     @BeforeEach
     private void setUp() {
-        person = new Person("Avinash", 19);
+        person = new Person("Avinash", 19, 0);
         testDate1 = new TimeStamp(2019, 3, 23);
         testFood1 = new SimpleFood("test", testDate1, 25, 1);
         testIngredient1 = new Ingredient("Test Ingredient", 123, 1);
@@ -98,13 +96,13 @@ public class PersonTest {
 
     @Test
     public void testEqualsTrue() {
-        Person person2 = new Person(person.getName(), person.getAge());
+        Person person2 = new Person(person.getName(), person.getAge(), 0);
         assertTrue(person.equals(person2));
     }
 
     @Test
     public void testEqualsFalse() {
-        Person person2 = new Person(person.getName(), 32);
+        Person person2 = new Person(person.getName(), 32, 0);
         assertFalse(person.equals(person2));
     }
 

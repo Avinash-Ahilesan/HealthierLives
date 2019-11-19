@@ -15,13 +15,15 @@ public class Person extends Observable implements Serializable {
     private FoodContainer foodEaten;
     private TrackerManager tm;
 
-    public Person(String name, int age) {
+    public Person(String name, int age, int targetCalories) {
         addObserver(new NotificationSender());
         foodEaten = new FoodContainer();
         this.name = name;
         this.age = age;
         tm = new TrackerManager();
+        this.targetCalories = targetCalories;
     }
+
 
     public void setTargetCalories(int target) {
         targetCalories = target;
@@ -84,7 +86,7 @@ public class Person extends Observable implements Serializable {
         if (personParams.length < 2) {
             throw new IncorrectParametersException();
         }
-        return new Person(personParams[0], Integer.parseInt(personParams[1]));
+        return new Person(personParams[0], Integer.parseInt(personParams[1]), 0);
     }
 
 
