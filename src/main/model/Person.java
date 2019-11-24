@@ -1,11 +1,14 @@
 package model;
 
 import exceptions.IncorrectParametersException;
+import javafx.collections.ObservableList;
 import model.food.Food;
 import model.food.FoodContainer;
 import model.trackers.TrackerManager;
+import ui.controllers.MainUIController;
 
 import java.io.*;
+import java.util.List;
 import java.util.Observable;
 
 public class Person extends Observable implements Serializable {
@@ -45,6 +48,10 @@ public class Person extends Observable implements Serializable {
 
     public String getFoodsEaten() {
         return foodEaten.getFoodsEaten();
+    }
+
+    public List<Food> getFoodsEaten(TimeStamp timeStamp) {
+        return foodEaten.getFoodsOnDate(timeStamp);
     }
 
     //EFFECTS: Returns the name and age of the person
@@ -89,7 +96,6 @@ public class Person extends Observable implements Serializable {
         return new Person(personParams[0], Integer.parseInt(personParams[1]), 0);
     }
 
-
     //EFFECTS: returns true if two objects are equal
     @Override
     public boolean equals(Object obj) {
@@ -113,4 +119,5 @@ public class Person extends Observable implements Serializable {
         }
         return false;
     }
+
 }

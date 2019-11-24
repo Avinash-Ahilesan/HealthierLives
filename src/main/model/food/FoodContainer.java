@@ -1,11 +1,11 @@
 package model.food;
 
+import javafx.collections.ObservableList;
 import model.TimeStamp;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+
 
 public class FoodContainer implements Serializable {
     private ArrayList<Food> foodList;
@@ -96,7 +96,18 @@ public class FoodContainer implements Serializable {
         return builder.toString();
     }
 
+
     public List<Food> getFoodsList() {
         return Collections.unmodifiableList(foodList);
+    }
+
+    public List<Food> getFoodsOnDate(TimeStamp timeStamp) {
+        List<Food> foodList = new ArrayList<>();
+        for (Food food : foodList) {
+            if (food.getDate().equals(timeStamp)) {
+                foodList.add(food);
+            }
+        }
+        return foodList;
     }
 }

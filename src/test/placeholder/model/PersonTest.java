@@ -107,6 +107,15 @@ public class PersonTest {
     }
 
     @Test
+    public void testEqualsNull() {
+        assertFalse(person.equals(null));
+    }
+
+    @Test
+    public void testEqualsIsThis() {
+        assertTrue(person.equals(person));
+    }
+    @Test
     public void testFoodsEatenWithSimpleFood() {
         person.addFood(testFood1);
         assertEquals("test 25 23/3/2019\n", person.getFoodsEaten());
@@ -131,6 +140,11 @@ public class PersonTest {
         person.setTargetCalories(100);
         person.addFood(new SimpleFood("Jack", new TimeStamp(2019, 2, 3), 150,1));
 
+    }
+
+    @Test
+    public void testOverCalories() {
+        assertFalse(person.isPastTargetCalories());
     }
 
 }

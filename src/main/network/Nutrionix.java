@@ -50,12 +50,12 @@ public class Nutrionix {
         JsonObject json = new Gson().fromJson(str, JsonObject.class);
 
         JsonArray jsonArray = json.getAsJsonArray("common");
-        outputFoodList(jsonArray);
+        //outputFoodList(jsonArray);
 
         return jsonArray;
     }
 
-    private void outputFoodList(JsonArray jsonArray) {
+    /*private void outputFoodList(JsonArray jsonArray) {
         for (JsonElement object : jsonArray) {
             JsonObject jsonObject = object.getAsJsonObject();
             System.out.println(object);
@@ -63,7 +63,7 @@ public class Nutrionix {
             System.out.println(jsonObject.get("serving_unit"));
             System.out.println(jsonObject.get("tag_name"));
         }
-    }
+    }*/
 
     private void setGetConnection(URL url, String requestPropertykey, String requestPropertyValue)
             throws IOException {
