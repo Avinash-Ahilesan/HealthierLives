@@ -133,10 +133,19 @@ public class FoodContainerTest {
     public void testEqualsFalse(){
         foodContainer.addFood(apple);
         foodContainer.addFood(banana);
-
         FoodContainer equalContainer = new FoodContainer();
         equalContainer.addFood(banana);
 
         assertFalse(foodContainer.equals(equalContainer));
+    }
+
+    @Test
+    public void testGetFoodsEatenByDate() {
+        TimeStamp ts = new TimeStamp(2019, 2, 5);
+        Food food = new SimpleFood("apple", ts, 100, 1);
+        foodContainer.addFood(food);
+        List<Food> foodListEatenOnDate = foodContainer.getFoodsOnDate(ts);
+
+        assertEquals(foodListEatenOnDate.get(0), food);
     }
 }

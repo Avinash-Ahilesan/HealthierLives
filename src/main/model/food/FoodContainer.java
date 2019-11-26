@@ -102,12 +102,12 @@ public class FoodContainer implements Serializable {
     }
 
     public List<Food> getFoodsOnDate(TimeStamp timeStamp) {
-        List<Food> foodList = new ArrayList<>();
+        List<Food> foodListDate = new ArrayList<>();
         for (Food food : foodList) {
             if (food.getDate().equals(timeStamp)) {
-                foodList.add(food);
+                foodListDate.add(food);
             }
         }
-        return foodList;
+        return foodListDate;
     }
 }

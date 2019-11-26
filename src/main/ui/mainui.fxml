@@ -4,14 +4,16 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.MainUIController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.MainUIController">
    <center>
-      <VBox prefHeight="420.0" prefWidth="616.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="501.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
             <HBox prefHeight="29.0" prefWidth="600.0">
                <children>
@@ -49,13 +51,13 @@
                   </Label>
                </children>
             </HBox>
-            <DatePicker fx:id="foodDateForDisplay" />
+            <DatePicker fx:id="foodDateForDisplay" onAction="#onDateChanged" />
             <Label text="Foods Eaten On Date:" />
-            <ListView fx:id="foodEatenList" prefHeight="174.0" prefWidth="434.0" />
+            <TableView fx:id="foodEatenTableView" prefHeight="200.0" prefWidth="200.0" />
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Label text="Food Options" />
-                  <Button fx:id="btnAddFood" mnemonicParsing="false" text="Add Food">
+                  <Button fx:id="btnAddFood" mnemonicParsing="false" onAction="#onAddFoodClicked" text="Add Food">
                      <HBox.margin>
                         <Insets top="35.0" />
                      </HBox.margin>
@@ -70,6 +72,39 @@
                         <Insets left="10.0" top="35.0" />
                      </HBox.margin>
                   </Button>
+               </children>
+            </HBox>
+            <HBox prefHeight="120.0" prefWidth="800.0">
+               <children>
+                  <VBox prefHeight="100.0" prefWidth="203.0">
+                     <children>
+                        <RadioButton fx:id="radioSimple" mnemonicParsing="false" onAction="#onSimpleSelected" text="Simple Food">
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="70.0" top="5.0" />
+                           </VBox.margin>
+                        </RadioButton>
+                        <RadioButton fx:id="radioMeal" mnemonicParsing="false" onAction="#onMealSelected" text="Meal">
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="70.0" />
+                           </VBox.margin>
+                        </RadioButton>
+                        <RadioButton fx:id="radioSearch" mnemonicParsing="false" onAction="#onSearchSelected" prefHeight="18.0" prefWidth="118.0" text="Search For Food">
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="70.0" />
+                           </VBox.margin>
+                        </RadioButton>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="120.0" prefWidth="131.0">
+                     <children>
+                        <Label text="Food Name" />
+                        <TextField fx:id="txtFoodName" promptText="Food Name" />
+                        <Label text="Calories" />
+                        <TextField fx:id="txtSimpleFoodCalories" promptText="Calories" />
+                        <Label text="Quantity" />
+                        <TextField fx:id="txtFoodQuantity" promptText="Quantity" text="1" />
+                     </children>
+                  </VBox>
                </children>
             </HBox>
          </children>

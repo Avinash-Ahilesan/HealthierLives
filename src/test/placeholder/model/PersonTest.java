@@ -139,7 +139,6 @@ public class PersonTest {
     public void testNotifier() {
         person.setTargetCalories(100);
         person.addFood(new SimpleFood("Jack", new TimeStamp(2019, 2, 3), 150,1));
-
     }
 
     @Test

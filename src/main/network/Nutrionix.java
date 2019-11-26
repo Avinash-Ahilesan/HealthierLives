@@ -10,7 +10,9 @@ import com.squareup.okhttp.Response;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class Nutrionix {
 
@@ -49,13 +51,13 @@ public class Nutrionix {
     private JsonArray toJsonArrayFoodList(String str) {
         JsonObject json = new Gson().fromJson(str, JsonObject.class);
 
-        JsonArray jsonArray = json.getAsJsonArray("common");
-        //outputFoodList(jsonArray);
+        JsonArray jsonArray = json.getAsJsonArray("branded");
+        outputFoodList(jsonArray);
 
         return jsonArray;
     }
 
-    /*private void outputFoodList(JsonArray jsonArray) {
+    private void outputFoodList(JsonArray jsonArray) {
         for (JsonElement object : jsonArray) {
             JsonObject jsonObject = object.getAsJsonObject();
             System.out.println(object);
@@ -63,7 +65,7 @@ public class Nutrionix {
             System.out.println(jsonObject.get("serving_unit"));
             System.out.println(jsonObject.get("tag_name"));
         }
-    }*/
+    }
 
     private void setGetConnection(URL url, String requestPropertykey, String requestPropertyValue)
             throws IOException {
@@ -103,9 +105,40 @@ public class Nutrionix {
         return "";
     }
 
+    public ArrayList<NutrionixFoodResult> getFoodResults(String query) {
+        OkHttpClient client = new OkHttpClient();
+        query = query.replaceAll(" ", "%20");
+        Request request = createFoodRequest(query);
+        try {
+            Response response = client.newCall(request).execute();
+            return extractNutrionixResult(response.body().string());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private ArrayList<NutrionixFoodResult> extractNutrionixResult(String response) {
+        JsonArray jsonArray = toJsonArrayFoodList(response);
+        ArrayList<NutrionixFoodResult> results = new ArrayList<>();
+        for (JsonElement object : jsonArray) {
+            NutrionixFoodResult foodResult = new NutrionixFoodResult();
+            JsonObject jsonObject = object.getAsJsonObject();
+
+            foodResult.setFoodName(jsonObject.get("food_name").toString());
+            foodResult.setCalories(jsonObject.get("nf_calories").toString());
+            JsonObject imageResult = jsonObject.getAsJsonObject("photo");
+            String url =  imageResult.get("thumb").toString();
+            foodResult.setImageResult(url);
+            //more parsing
+            results.add(foodResult);
+        }
+        return results;
+    }
+
     private Request createFoodRequest(String query) {
         Request request = new Request.Builder()
-                .url("https://trackapi.nutritionix.com/v2/search/instant?query=" + query)
+                .url("https://trackapi.nutritionix.com/v2/search/instant?query=" + query + "&branded=1")
                 .get()
                 .addHeader("x-app-id", "d945959f")
                 .addHeader("x-app-key", "2106962a026217738b1c97202cdf130a")
