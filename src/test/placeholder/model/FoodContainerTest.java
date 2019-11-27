@@ -76,6 +76,16 @@ public class FoodContainerTest {
     }
 
     @Test
+    public void testRemoveFood() {
+        assertEquals(0, foodContainer.getFoodCount());
+        foodContainer.addFood(apple);
+        foodContainer.addFood(apple);
+        assertEquals(1, foodContainer.getFoodCount());
+        foodContainer.removeFood(apple);
+        assertEquals(0, foodContainer.getFoodCount());
+    }
+
+    @Test
     public void testGetFoodsEaten() {
         foodContainer.addFood(apple);
         foodContainer.addFood(banana);

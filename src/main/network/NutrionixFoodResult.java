@@ -6,7 +6,7 @@ public class NutrionixFoodResult {
     private String imageResult;
 
     public String getFoodName() {
-        return foodName;
+        return foodName.replaceAll("\"","");
     }
 
     public void setFoodName(String foodName) {

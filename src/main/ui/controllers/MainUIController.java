@@ -44,7 +44,6 @@ public class MainUIController implements Observer {
     public RadioButton radioSearch;
 
 
-
     //TODO: only allow numbers in textfields that require it
     //MODIFIES: View
     //EFFECTS: sets view properties for table
@@ -71,22 +70,42 @@ public class MainUIController implements Observer {
     //EFFECTS: Opens appropriate tab depending on selected
     //         radio box, creating food with the properties from the text fields
     public void onAddFoodClicked() {
-        if (radioSimple.isSelected()) {
-            String foodName = txtFoodName.getText();
-            int calories = Integer.parseInt(txtSimpleFoodCalories.getText());
-            int quantity = Integer.parseInt(txtFoodQuantity.getText());
-            Food food = new SimpleFood(foodName, getCurrentDate(), calories, quantity);
-            person.addFood(food);
-            updateListViewFoodAdded(food);
+        try {
+            if (radioSimple.isSelected()) {
+                createSimple();
+            }
+            if (radioSearch.isSelected()) {
+                loadSearchScene();
+            }
+            if (radioMeal.isSelected()) {
+                loadAddMealScene();
+            }
+            updateCurrentCaloriesLabel();
+        } catch (NumberFormatException e) {
+            numberFormatAlert();
         }
-        if (radioSearch.isSelected()) {
-            loadSearchScene();
-        }
-        if (radioMeal.isSelected()) {
-            loadAddMealScene();
-        }
-        updateCurrentCaloriesLabel();
 
+    }
+
+    //REQUIRES:
+    //MODIFIES: View, person
+    //EFFECTS: removes the selected food from the tableview and person
+    public void onRemoveFood() {
+        Food food = (Food) foodEatenTableView.getSelectionModel().getSelectedItem();
+        if (food != null) {
+            foodEatenTableView.getItems().remove(food);
+            person.removeFood(food);
+            updateCurrentCaloriesLabel();
+        }
+    }
+
+    private void createSimple() {
+        String foodName = txtFoodName.getText();
+        int calories = Integer.parseInt(txtSimpleFoodCalories.getText());
+        int quantity = Integer.parseInt(txtFoodQuantity.getText());
+        Food food = new SimpleFood(foodName, getCurrentDate(), calories, quantity);
+        person.addFood(food);
+        updateListViewFoodAdded(food);
     }
 
 
@@ -217,6 +236,18 @@ public class MainUIController implements Observer {
 
     public void updateCurrentCaloriesLabel() {
         lblCurrentCalories.setText("Current calories: " + person.getTotalCalories());
+    }
+
+
+    //EFFECTS: creates a message box indicating that numerical input
+    //         was expected, but was not found
+    static void numberFormatAlert() {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Invalid Input");
+        alert.setHeaderText("You've inputted something wrong!");
+        alert.setContentText("Make sure that you're inputting numbers where numbers are required!\"");
+
+        alert.showAndWait();
     }
 
     //REQUIRES:

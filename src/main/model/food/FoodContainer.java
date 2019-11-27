@@ -119,4 +119,8 @@ public class FoodContainer implements Serializable {
         }
         return foodListDate;
     }
+
+    public void removeFood(Food food) {
+        foodList.remove(food);
+    }
 }

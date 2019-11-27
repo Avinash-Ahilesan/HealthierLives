@@ -12,9 +12,7 @@ public class TimeStamp implements Serializable {
         calendar.set(year, month, date);
     }
 
-    //REQUIRES:
-    //MODIFIES:
-    //EFFECTS:
+    //EFFECTS: returns current date format DD/MM/YYYY
     @Override
     public String toString() {
         int year = calendar.get(Calendar.YEAR);

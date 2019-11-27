@@ -1,11 +1,9 @@
 package model;
 
 import exceptions.IncorrectParametersException;
-import javafx.collections.ObservableList;
 import model.food.Food;
 import model.food.FoodContainer;
 import model.trackers.TrackerManager;
-import ui.controllers.MainUIController;
 
 import java.io.*;
 import java.util.List;
@@ -43,6 +41,8 @@ public class Person extends Observable implements Serializable {
     }
 
 
+    //MODIFIES: this
+    //EFFECTS: adds food to the foodcontainer to keep track of food eaten
     public void addFood(Food food) {
         foodEaten.addFood(food);
         System.out.println(foodEaten.getCalorieTotal());
@@ -50,6 +50,10 @@ public class Person extends Observable implements Serializable {
             setChanged();
             notifyObservers(this);
         }
+    }
+
+    public void removeFood(Food food) {
+        foodEaten.removeFood(food);
     }
 
     public String getFoodsEaten() {

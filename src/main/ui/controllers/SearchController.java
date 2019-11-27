@@ -67,17 +67,20 @@ public class SearchController {
     //MODIFIES: MainUIController
     //EFFECTS: saves the food added
     public void onAddFoodClicked() {
-        NutrionixFoodResult result = (NutrionixFoodResult)searchResultsTableView.getSelectionModel().getSelectedItem();
-        if (result != null) {
-            SimpleFood food = new SimpleFood(result.getFoodName(), TimeStamp.getCurrentDate(),
-                    Integer.parseInt(result.getCalories()), 1);
-            mainref.getPerson().addFood(food);
-            mainref.updateListViewFoodAdded(food);
-            Stage stage = (Stage) txtSearchTerm.getScene().getWindow();
-            //TODO: test this out
-            mainref.getPerson().addFood(food);
-            // do what you have to do
-            stage.close();
+        try {
+            NutrionixFoodResult result = (NutrionixFoodResult) searchResultsTableView.getSelectionModel().getSelectedItem();
+            if (result != null) {
+                SimpleFood food = new SimpleFood(result.getFoodName(), TimeStamp.getCurrentDate(),
+                        Integer.parseInt(result.getCalories()), Integer.parseInt(mainref.txtFoodQuantity.getText()));
+                mainref.getPerson().addFood(food);
+                mainref.updateListViewFoodAdded(food);
+                mainref.updateCurrentCaloriesLabel();
+                Stage stage = (Stage) txtSearchTerm.getScene().getWindow();
+                // do what you have to do
+                stage.close();
+            }
+        } catch (Exception e) {
+            MainUIController.numberFormatAlert();
         }
     }
 

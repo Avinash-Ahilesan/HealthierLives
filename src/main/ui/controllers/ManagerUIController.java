@@ -61,12 +61,7 @@ public class ManagerUIController {
     }
 
     private void numberFormatException() {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Invalid Input");
-        alert.setHeaderText("You've inputted something wrong!");
-        alert.setContentText("Make sure that you're inputting numbers where numbers are required!\"");
-
-        alert.showAndWait();
+        MainUIController.numberFormatAlert();
     }
 
     //EFFECTS: enters the main program with selected person

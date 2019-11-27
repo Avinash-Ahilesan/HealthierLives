@@ -67,7 +67,7 @@
                         <Insets left="10.0" top="35.0" />
                      </HBox.margin>
                   </Button>
-                  <Button layoutX="92.0" layoutY="45.0" mnemonicParsing="false" text="Delete Food">
+                  <Button layoutX="92.0" layoutY="45.0" mnemonicParsing="false" onAction="#onRemoveFood" text="Delete Food">
                      <HBox.margin>
                         <Insets left="10.0" top="35.0" />
                      </HBox.margin>

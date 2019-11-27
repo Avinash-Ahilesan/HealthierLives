@@ -94,6 +94,8 @@ public class PersonTest {
 
     }
 
+
+
     @Test
     public void testEqualsTrue() {
         Person person2 = new Person(person.getName(), person.getAge(), 0);
@@ -127,6 +129,13 @@ public class PersonTest {
         meal.addIngredient(testIngredient1);
         person.addFood(meal);
         assertEquals("abc 123\n", person.getFoodsEaten());
+    }
+    @Test
+    public void testRemoveFood() {
+        person.addFood(testFood1);
+        assertEquals("test 25 23/3/2019\n", person.getFoodsEaten());
+        person.removeFood(testFood1);
+        assertEquals("", person.getFoodsEaten());
     }
 
     @Test
