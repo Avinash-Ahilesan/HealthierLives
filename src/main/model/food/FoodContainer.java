@@ -10,6 +10,9 @@ import java.util.*;
 public class FoodContainer implements Serializable {
     private ArrayList<Food> foodList;
 
+    //REQUIRES:
+    //MODIFIES:
+    //EFFECTS: returmns total protein in all foods in foodList
     public int getProteinTotalGrams() {
         int proteinCount = 0;
         for (Food food : foodList) {
@@ -18,6 +21,7 @@ public class FoodContainer implements Serializable {
         return proteinCount;
     }
 
+    //EFFECTS: returns total carbohydrates in all foods in foodlist
     public int getCarbohydrateTotalGrams() {
         int carbCount = 0;
         for (Food food : foodList) {
@@ -26,6 +30,7 @@ public class FoodContainer implements Serializable {
         return carbCount;
     }
 
+    //EFFECTS: returns total fats in all foods in foodlist
     public int getFatsTotalGrams() {
         int fatCount = 0;
         for (Food food : foodList) {
@@ -47,7 +52,7 @@ public class FoodContainer implements Serializable {
     public int getCalorieTotal() {
         int calorieTotal = 0;
         for (Food food : foodList) {
-            calorieTotal += food.getCalories();
+            calorieTotal += food.getCalories() * food.getNumEaten();
         }
         return calorieTotal;
     }
@@ -57,12 +62,14 @@ public class FoodContainer implements Serializable {
         int calorieTotal = 0;
         for (Food food : foodList) {
             if (food.getDate().equals(date)) {
-                calorieTotal += food.getCalories();
+                calorieTotal += food.getCalories() * food.getNumEaten();
             }
         }
         return calorieTotal;
     }
 
+
+    //EFFECTS: returns true if two foodcontainers are same, false otherwise
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -88,6 +95,7 @@ public class FoodContainer implements Serializable {
         }
     }
 
+    //EFFECTS: returns a string form of all foods eaten
     public String getFoodsEaten() {
         StringBuilder builder = new StringBuilder();
         for (Food food : foodList) {
@@ -96,11 +104,12 @@ public class FoodContainer implements Serializable {
         return builder.toString();
     }
 
-
+    //EFFECTS: returns an unmodifiable list of all foods eaten
     public List<Food> getFoodsList() {
         return Collections.unmodifiableList(foodList);
     }
 
+    //EFFECTS: returns a list of all foods eaten on a certain date
     public List<Food> getFoodsOnDate(TimeStamp timeStamp) {
         List<Food> foodListDate = new ArrayList<>();
         for (Food food : foodList) {

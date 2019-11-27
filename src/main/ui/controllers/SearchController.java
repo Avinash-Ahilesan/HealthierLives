@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import model.Person;
+import model.TimeStamp;
 import model.food.Food;
 import model.food.SimpleFood;
 import network.Nutrionix;
@@ -26,6 +27,9 @@ public class SearchController {
     ArrayList<NutrionixFoodResult> foodResults;
     Nutrionix api;
 
+    //REQUIRES:
+    //MODIFIES: View
+    //EFFECTS: sets up TableView of foods
     public void initialize() {
         api = new Nutrionix();
         TableColumn<String, NutrionixFoodResult> foodNameColumn = new TableColumn<>("Food Name");
@@ -46,6 +50,8 @@ public class SearchController {
                 });*/
     }
 
+    //MODIFIES: View
+    //EFFECTS: updates TableView with search results
     public void searchForFood() {
         foodResults = api.getFoodResults(txtSearchTerm.getText());
         updateTableContents();
@@ -58,14 +64,18 @@ public class SearchController {
         }
     }
 
+    //MODIFIES: MainUIController
+    //EFFECTS: saves the food added
     public void onAddFoodClicked() {
         NutrionixFoodResult result = (NutrionixFoodResult)searchResultsTableView.getSelectionModel().getSelectedItem();
         if (result != null) {
-            SimpleFood food = new SimpleFood(result.getFoodName(), mainref.getCurrentDate(),
+            SimpleFood food = new SimpleFood(result.getFoodName(), TimeStamp.getCurrentDate(),
                     Integer.parseInt(result.getCalories()), 1);
             mainref.getPerson().addFood(food);
             mainref.updateListViewFoodAdded(food);
             Stage stage = (Stage) txtSearchTerm.getScene().getWindow();
+            //TODO: test this out
+            mainref.getPerson().addFood(food);
             // do what you have to do
             stage.close();
         }

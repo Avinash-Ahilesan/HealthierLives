@@ -6,7 +6,11 @@ import java.util.ArrayList;
 public class LoadAndSave {
     private static String PATH = "./data/";
 
+
     //"todoListData.txt" = person
+    //MODIFIES: a file with name fileName
+    //EFFECTS: saves the object data for the object given to a file
+    //         with name fileName, appending if set true by user
     public static void save(boolean append, String fileName, Object obj) {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(new File(PATH + fileName), append);
@@ -22,6 +26,9 @@ public class LoadAndSave {
         }
     }
 
+    //REQUIRES: the fileName file should exist
+    //MODIFIES: text file named filenAme
+    //EFFECTS: returns a list of objects that were in the file
     public static ArrayList<Object> load(String fileName) {
         ArrayList<Object> personList = new ArrayList<>();
         try {

@@ -33,6 +33,7 @@ public class MealFood extends Food {
     public MealFood(String name, TimeStamp date, int quantityEaten) {
         super(name, date, quantityEaten);
         ingredients = new FoodContainer();
+        this.numEaten = quantityEaten;
     }
 
     public void addIngredient(SimpleFood food) {

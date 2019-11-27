@@ -5,13 +5,9 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.Person;
-import ui.HealthierLives;
 
 import java.io.IOException;
 
@@ -24,9 +20,10 @@ public class ManagerUIController {
     public TextField txtTargetCalories;
     public ListView<Person> personListView;
     public ObservableList<Person> personList;
-    HealthierLives tracker = new HealthierLives();
 
 
+    //MODIFIES: View
+    //EFFECTS: sets propeties for the listView
     public void initialize() {
         System.out.println("initialized");
         personList = FXCollections.observableArrayList();
@@ -34,17 +31,27 @@ public class ManagerUIController {
         personListView.setItems(personList); //line of error
     }
 
+
+    //MODIFIES: this
+    //EFFECTS: creates a new profile with the given information
     public void createProfileClicked() {
-        Person p = new Person(txtName.getText(), Integer.parseInt(txtAge.getText()),
-                Integer.parseInt(txtTargetCalories.getText()));
-        if (personList.contains(p)) {
-            //TODO: add alert box asking them if they're sure they want to continue
-            System.out.println("person already here");
+        try {
+            Person p = new Person(txtName.getText(), Integer.parseInt(txtAge.getText()),
+                    Integer.parseInt(txtTargetCalories.getText()));
+            if (personList.contains(p)) {
+                //TODO: add alert box asking them if they're sure they want to continue
+                System.out.println("person already here");
+            }
+            personList.add(p);
+            System.out.println(p);
+        } catch (NumberFormatException e) {
+            numberFormatException();
         }
-        personList.add(p);
-        System.out.println(p);
     }
 
+    //REQUIRES:
+    //MODIFIES:
+    //EFFECTS: deletes selected person
     public void deletePersonClicked() {
         Person personToDelete = personListView.getSelectionModel().getSelectedItem();
         System.out.println(personToDelete);
@@ -53,6 +60,16 @@ public class ManagerUIController {
         }
     }
 
+    private void numberFormatException() {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Invalid Input");
+        alert.setHeaderText("You've inputted something wrong!");
+        alert.setContentText("Make sure that you're inputting numbers where numbers are required!\"");
+
+        alert.showAndWait();
+    }
+
+    //EFFECTS: enters the main program with selected person
     public void enterProgramClicked() {
         Person p = personListView.getSelectionModel().getSelectedItem();
         if (p != null) {

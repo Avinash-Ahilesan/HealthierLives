@@ -25,28 +25,6 @@ public class Nutrionix {
         return "";
     }
 
-//    public String searchFood(String query) {
-//        try {
-//            URL url = new URL("https://trackapi.nutritionix.com/v2/search/instant?query=grilled cheese");
-//            setGetConnection(url, "Accept", "*/*");
-//
-//            BufferedReader br = new BufferedReader(new InputStreamReader(
-//                    (connection.getInputStream())));
-//            String output;
-//            StringBuilder builder = new StringBuilder();
-//            while ((output = br.readLine()) != null) {
-//                builder.append(output);
-//            }
-//            connection.disconnect();
-//            return builder.toString();
-//            //return parseJsonToString(builder.toString());
-//        } catch (MalformedURLException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return "Fetcher Not Working";
-//    }
 
     private JsonArray toJsonArrayFoodList(String str) {
         JsonObject json = new Gson().fromJson(str, JsonObject.class);
@@ -91,6 +69,8 @@ public class Nutrionix {
         }
     }
 
+    //EFFECTS: returns the response from a specific query to the Nutrinoix
+    //         search API
     public String getFood(String query) {
         OkHttpClient client = new OkHttpClient();
         query = query.replaceAll(" ", "%20");
@@ -105,6 +85,7 @@ public class Nutrionix {
         return "";
     }
 
+    //EFFECTS: returns the results from query as a list of NutrionixFoodResult objects
     public ArrayList<NutrionixFoodResult> getFoodResults(String query) {
         OkHttpClient client = new OkHttpClient();
         query = query.replaceAll(" ", "%20");
@@ -118,6 +99,8 @@ public class Nutrionix {
         return null;
     }
 
+
+    //EFFECTS: parses a response and extracts elements to create a NutrionixFoodResult
     private ArrayList<NutrionixFoodResult> extractNutrionixResult(String response) {
         JsonArray jsonArray = toJsonArrayFoodList(response);
         ArrayList<NutrionixFoodResult> results = new ArrayList<>();

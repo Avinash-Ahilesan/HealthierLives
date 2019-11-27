@@ -13,7 +13,7 @@ public abstract class Food implements Serializable {
     private String name;
     private TimeStamp date;
     protected int calories;
-
+    protected int numEaten;
 
     public int getNumEaten() {
         return numEaten;
@@ -23,7 +23,7 @@ public abstract class Food implements Serializable {
         this.numEaten = numEaten;
     }
 
-    private int numEaten;
+
 
     //EFFECTS: Returns the calories of the food
     public abstract int getCalories();

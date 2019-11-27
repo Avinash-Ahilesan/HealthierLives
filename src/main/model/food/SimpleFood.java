@@ -33,8 +33,11 @@ public class SimpleFood extends Food {
     public SimpleFood(String name, TimeStamp date, int calorieCount, int quantityEaten) {
         super(name, date, quantityEaten);
         this.calories = calorieCount;
+        this.numEaten = quantityEaten;
     }
 
+    //REQUIRES: above zero value for proteinCount, carbCount, fatCount
+    //EFFECTS: sets the amount of proteins, carbs, and fats for this food
     public void setMacroCountGrams(int proteinCount, int carboCount, int fatCount) {
         this.proteins = proteinCount;
         this.carbohydrates = carboCount;

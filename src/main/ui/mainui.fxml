@@ -41,7 +41,7 @@
                         <Insets right="5.0" />
                      </HBox.margin>
                   </Label>
-                  <Label fx:id="lblWeight" prefHeight="17.0" prefWidth="74.0" text="Weight:">
+                  <Label fx:id="lblCurrentCalories" prefHeight="17.0" prefWidth="135.0" text="Current Calories:">
                      <opaqueInsets>
                         <Insets right="5.0" />
                      </opaqueInsets>

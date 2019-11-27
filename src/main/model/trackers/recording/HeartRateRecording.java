@@ -12,6 +12,8 @@ public class HeartRateRecording extends TrackerRecording {
         this.bpm = bpm;
     }
 
+    //EFFECTS: compares two HeartRateRecordings and returns true if
+    //         their equal and false otherwise
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

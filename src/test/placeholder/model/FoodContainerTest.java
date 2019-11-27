@@ -46,6 +46,13 @@ public class FoodContainerTest {
     }
 
     @Test
+    public void testGetCalorieMultipleQuantity() {
+        assertEquals(0, foodContainer.getCalorieTotal()); // No items added yet
+        Food food = new SimpleFood("Bananana", date1, 100, 3);
+        foodContainer.addFood(food);
+        assertEquals(300,foodContainer.getCalorieTotal());
+    }
+    @Test
     public void testGetCalorieCountByDate() {
         assertEquals(0, foodContainer.getCalorieTotalByDate(date1));
         assertEquals(0, foodContainer.getCalorieTotalByDate(date2));

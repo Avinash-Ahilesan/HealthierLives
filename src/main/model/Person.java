@@ -10,6 +10,7 @@ import ui.controllers.MainUIController;
 import java.io.*;
 import java.util.List;
 import java.util.Observable;
+import java.util.Observer;
 
 public class Person extends Observable implements Serializable {
     private String name;
@@ -28,6 +29,10 @@ public class Person extends Observable implements Serializable {
     }
 
 
+    public void setObserver(Observer observer) {
+        addObserver(observer);
+
+    }
     public void setTargetCalories(int target) {
         targetCalories = target;
     }
@@ -111,6 +116,10 @@ public class Person extends Observable implements Serializable {
             return true;
         }
         return false;
+    }
+
+    public int getTotalCalories() {
+        return foodEaten.getCalorieTotal();
     }
 
     public boolean isPastTargetCalories() {
