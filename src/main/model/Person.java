@@ -33,6 +33,7 @@ public class Person extends Observable implements Serializable {
         addObserver(observer);
 
     }
+
     public void setTargetCalories(int target) {
         targetCalories = target;
     }

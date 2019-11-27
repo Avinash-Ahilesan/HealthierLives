@@ -74,7 +74,6 @@ public class AddMealFoodController {
                 meal.addIngredient(ingr);
             }
         }
-        //TODO: make the screen close
         controller.updateListViewFoodAdded(meal);
         Stage stage = (Stage) txtFoodName.getScene().getWindow();
         stage.close();
