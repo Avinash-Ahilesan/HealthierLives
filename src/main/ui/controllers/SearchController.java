@@ -68,7 +68,8 @@ public class SearchController {
     //EFFECTS: saves the food added
     public void onAddFoodClicked() {
         try {
-            NutrionixFoodResult result = (NutrionixFoodResult) searchResultsTableView.getSelectionModel().getSelectedItem();
+            NutrionixFoodResult result;
+            result = (NutrionixFoodResult) searchResultsTableView.getSelectionModel().getSelectedItem();
             if (result != null) {
                 SimpleFood food = new SimpleFood(result.getFoodName(), TimeStamp.getCurrentDate(),
                         Integer.parseInt(result.getCalories()), Integer.parseInt(mainref.txtFoodQuantity.getText()));
