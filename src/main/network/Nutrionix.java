@@ -17,8 +17,8 @@ import java.util.ArrayList;
 public class Nutrionix {
 
     private HttpsURLConnection connection;
-    private String appId = "d945959f";
-    private String apiKey = "2106962a026217738b1c97202cdf130a";
+    private String appId = ""; // appId
+    private String apiKey = ""; // appKey
 
     //quoted from: https://www.mkyong.com/webservices/jax-rs/restfull-java-client-with-java-net-url/
     public String findCaloriesBurned() {
